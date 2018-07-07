@@ -3,6 +3,8 @@ analyzeCommits:
   releaseRules:
   - tag: Docs
     release: minor
+generateNotes:
+  preset: eslint
 prepare:
 - "@semantic-release/changelog"
 - "@semantic-release/npm"

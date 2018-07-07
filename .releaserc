@@ -2,7 +2,7 @@ analyzeCommits:
   preset: eslint
   releaseRules:
   - tag: Docs
-    release: minor
+    release: patch
 generateNotes:
   preset: eslint
 prepare:

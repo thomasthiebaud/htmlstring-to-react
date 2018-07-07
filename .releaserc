@@ -1,7 +1,7 @@
 analyzeCommits:
   preset: eslint
   releaseRules:
-  - type: Docs
+  - tag: Docs
     release: minor
 prepare:
 - "@semantic-release/changelog"

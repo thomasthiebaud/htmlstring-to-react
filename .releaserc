@@ -10,6 +10,7 @@ prepare:
   assets:
   - package.json
   - package-lock.json
+  - CHANGELOG.md
   message: |-
     Chore: Release ${nextRelease.version} [skip ci]
 

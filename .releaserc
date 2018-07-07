@@ -1,5 +1,8 @@
 analyzeCommits:
   preset: eslint
+  releaseRules:
+  - type: Docs
+    release: minor
 prepare:
 - "@semantic-release/changelog"
 - "@semantic-release/npm"

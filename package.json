@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/thomasthiebaud/htmldom-to-react/issues"
   },
-  "homepage": "https://github.com/thomasthiebaud/htmldom-to-react#readme"
+  "homepage": "https://github.com/thomasthiebaud/htmldom-to-react#readme",
+  "devDependencies": {
+    "tslint": "5.10.0",
+    "tslint-react": "3.6.0",
+    "typescript": "2.9.2"
+  }
 }

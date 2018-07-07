@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "jsx": "react",
+    "lib": [
+      "dom",
+      "es2015"
+    ],
+    "noImplicitAny": true,
+    "outDir": "lib",
+    "sourceMap": true,
+    "target": "es6",
+  },
+  "include": [
+    "./src/**/*"
+  ]
+}

@@ -4,7 +4,7 @@
   "description": "Convert HTML DOM to React elements",
   "main": "./lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "commitmsg": "commitlint -E GIT_PARAMS"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/thomasthiebaud/htmldom-to-react#readme",
   "devDependencies": {
+    "commitlint": "7.0.0",
+    "husky": "0.14.3",
     "tslint": "5.10.0",
     "tslint-react": "3.6.0",
     "typescript": "2.9.2"

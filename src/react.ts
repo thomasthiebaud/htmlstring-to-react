@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Attributes, Element } from './ast'
+import { ASTElement, Attributes, NodeType } from './ast'
 
 const reactAttributesMap: Attributes = {
   acceptcharset: 'acceptCharset',
@@ -56,43 +56,47 @@ function transformAttributes(attributes?: Attributes): Attributes {
 
   const transformedAttributes: Attributes = {}
   Object.keys(attributes).forEach((key) => {
-    if (!attributes[key].startsWith('on') && reactAttributesMap[key]) {
-      transformedAttributes[reactAttributesMap[key]] = attributes[key]
+    if (!key.startsWith('on')) {
+      if (reactAttributesMap[key]) {
+        transformedAttributes[reactAttributesMap[key]] = attributes[key]
+      } else {
+        transformedAttributes[key] = attributes[key]
+      }
     }
   })
   return transformedAttributes
 }
 
-function transformChildren(children?: Element[]) {
+function transformChildren(children?: ASTElement[]) {
   return children || []
 }
 
-export function transform(element: Element) {
+export function transform(element: ASTElement) {
   return {
     ...element,
-    attribs: transformAttributes(element.attribs),
+    attributes: transformAttributes(element.attributes),
     children: transformChildren(element.children),
   }
 }
 
-export function renderElement(element: Element): React.ReactNode {
-  if (element.type === 'text') {
-    return element.data
-  } else if (element.type === 'tag') {
-    const children = element.data ? [
-      element.data,
+export function renderElement(element: ASTElement): React.ReactNode {
+  if (element.type === NodeType.TEXT_NODE) {
+    return element.value
+  } else if (element.type === NodeType.ELEMENT_NODE) {
+    const children = element.value ? [
+      element.value,
       ...renderElements(element.children),
     ] : renderElements(element.children)
-    return React.createElement(element.name, element.attribs, children)
+    return React.createElement(element.name, element.attributes, children)
   }
 
   return null
 }
 
-export function renderElements(ast: Element[]): React.ReactNode [] {
+export function renderElements(ast: ASTElement[]): React.ReactNode[] {
   return ast.reduce((elements, element) => {
-    // Only keep text and tags. Remove everything else like comments, scritps,...
-    if (element.type === 'tag' || element.type === 'text') {
+    // Only keep text and tags. Remove everything else
+    if (element.type === NodeType.ELEMENT_NODE || element.type === NodeType.TEXT_NODE) {
       elements.push(renderElement(transform(element)))
     }
     return elements

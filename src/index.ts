@@ -1,5 +1,5 @@
 import getAst from './ast'
-import { renderElements, transform } from './react'
+import { renderElements } from './react'
 
 export function parse(html: string): React.ReactNode[] {
   const ast = getAst(html)

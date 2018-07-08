@@ -1,45 +1,50 @@
 import { render, shallow } from 'enzyme'
 import * as React from 'react'
 
+import { NodeType } from '../src/ast'
 import { renderElement, renderElements, transform } from '../src/react'
 
 describe('React', () => {
   describe('#transform', () => {
     it('should remove event handler from attributes', () => {
       const element = {
-        attribs: {
+        attributes: {
           onclick: 'wazaaa',
         },
         name: 'button',
-        type: 'tag',
+        type: NodeType.ELEMENT_NODE,
+        value: null,
       }
 
       expect(transform(element)).toEqual({
-        attribs: {},
+        attributes: {},
         children: [],
         name: 'button',
-        type: 'tag',
+        type: NodeType.ELEMENT_NODE,
+        value: null,
       })
     })
 
     it('should rename attributes to match react syntax', () => {
       const element = {
-        attribs: {
+        attributes: {
           class: 'wazaaa',
           for: 'test',
         },
         name: 'button',
-        type: 'tag',
+        type: NodeType.ELEMENT_NODE,
+        value: null,
       }
 
       expect(transform(element)).toEqual({
-        attribs: {
+        attributes: {
           className: 'wazaaa',
           htmlFor: 'test',
         },
         children: [],
         name: 'button',
-        type: 'tag',
+        type: NodeType.ELEMENT_NODE,
+        value: null,
       })
     })
   })
@@ -47,9 +52,9 @@ describe('React', () => {
   describe('#renderElement', () => {
     it('should render a text element', () => {
       const element = {
-        attribs: {},
-        data: 'Test',
-        type: 'text',
+        name: '#text',
+        type: NodeType.TEXT_NODE,
+        value: 'Test',
       }
 
       expect(renderElement(element)).toEqual('Test')
@@ -57,11 +62,11 @@ describe('React', () => {
 
     it('should render a tag element', () => {
       const element = {
-        attribs: {},
+        attributes: {},
         children: [],
-        data: 'Link',
         name: 'a',
-        type: 'tag',
+        type: NodeType.ELEMENT_NODE,
+        value: 'Link',
       }
       const link = shallow(React.createElement('div', null, renderElement(element)))
       expect(link.text()).toEqual('Link')
@@ -69,12 +74,13 @@ describe('React', () => {
 
     it('should render a tag element with attributes', () => {
       const element = {
-        attribs: {
+        attributes: {
           href: '#',
         },
         children: [],
         name: 'a',
-        type: 'tag',
+        type: NodeType.ELEMENT_NODE,
+        value: null,
       }
       const wrapper = shallow(React.createElement('div', null, renderElement(element)))
       const link = wrapper.find('a')
@@ -84,16 +90,24 @@ describe('React', () => {
     it('should render nested tags', () => {
       const element = {
         children: [{
+          attributes: {
+            key: '1',
+          },
           children: [{
-            attribs: {},
-            data: 'text',
-            type: 'text',
+            attributes: {
+              key: '2',
+            },
+            name: '#text',
+            type: NodeType.TEXT_NODE,
+            value: 'text',
           }],
           name: 'b',
-          type: 'tag',
+          type: NodeType.ELEMENT_NODE,
+          value: null,
         }],
         name: 'em',
-        type: 'tag',
+        type: NodeType.ELEMENT_NODE,
+        value: null,
       }
       const nested = render(React.createElement('div', null, renderElement(element)))
 
@@ -110,7 +124,8 @@ describe('React', () => {
     it('should ignore unknown type', () => {
       const element = {
         name: 'em',
-        type: '',
+        type: -1,
+        value: null,
       }
       expect(renderElement(element)).toBeNull()
     })
@@ -119,11 +134,9 @@ describe('React', () => {
   describe('#renderElements', () => {
     it('should only render text and tag elements', () => {
       const elements = [{
-        attribs: {},
-        children: [],
-        data: 'Link',
         name: 'a',
-        type: '',
+        type: -1,
+        value: 'Link',
       }]
       expect(renderElements(elements)).toEqual([])
     })

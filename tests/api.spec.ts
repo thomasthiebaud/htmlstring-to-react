@@ -1,4 +1,4 @@
-import { render, shallow } from 'enzyme'
+import { render } from 'enzyme'
 import * as React from 'react'
 
 import * as htmldomToReact from '../src/index'
@@ -10,7 +10,7 @@ describe('Public API', () => {
 
   describe('#parse', () => {
     it('should convert a string to an array of react nodes', () => {
-      const elements = htmldomToReact.parse('<em><b>It\' is working</b></em>')
+      const elements = htmldomToReact.parse('<em key="1"><b key="2">It\' is working</b></em>')
       const wrapper = render(React.createElement('div', null, elements))
       expect(wrapper.text()).toEqual('It\' is working')
       expect(wrapper.find('em')).toHaveLength(1)

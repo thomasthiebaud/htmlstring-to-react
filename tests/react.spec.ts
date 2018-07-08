@@ -90,7 +90,13 @@ describe('React', () => {
     it('should render nested tags', () => {
       const element = {
         children: [{
+          attributes: {
+            key: '1',
+          },
           children: [{
+            attributes: {
+              key: '2',
+            },
             name: '#text',
             type: NodeType.TEXT_NODE,
             value: 'text',

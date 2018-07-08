@@ -56,8 +56,12 @@ function transformAttributes(attributes?: Attributes): Attributes {
 
   const transformedAttributes: Attributes = {}
   Object.keys(attributes).forEach((key) => {
-    if (!attributes[key].startsWith('on') && reactAttributesMap[key]) {
-      transformedAttributes[reactAttributesMap[key]] = attributes[key]
+    if (!key.startsWith('on')) {
+      if (reactAttributesMap[key]) {
+        transformedAttributes[reactAttributesMap[key]] = attributes[key]
+      } else {
+        transformedAttributes[key] = attributes[key]
+      }
     }
   })
   return transformedAttributes

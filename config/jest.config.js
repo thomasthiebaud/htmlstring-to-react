@@ -12,5 +12,6 @@ module.exports = {
   rootDir: path.resolve(__dirname, '..'),
   moduleNameMapper: {
     '\\.(css|less|sass|scss)$': '<rootDir>/tests/styleMock.js'
-  }
+  },
+  setupTestFrameworkScriptFile: '<rootDir>tests/setupTests.js'
 }

@@ -1,3 +1,14 @@
+# [1.5.0](https://github.com/thomasthiebaud/htmldom-to-react/compare/v1.4.0...v1.5.0) (2018-07-08)
+
+
+### Fix
+
+* Correctly filter attributes ([dd967fc82a3a01c47d5a6dcbc4995d7f819e601c](https://github.com/thomasthiebaud/htmldom-to-react/commit/dd967fc82a3a01c47d5a6dcbc4995d7f819e601c))
+
+### New
+
+* Use browser DOMParser and drop external dependencies ([9d745fad6606906130b4f175c645ac924b3f1af7](https://github.com/thomasthiebaud/htmldom-to-react/commit/9d745fad6606906130b4f175c645ac924b3f1af7))
+
 # [1.4.0](https://github.com/thomasthiebaud/htmldom-to-react/compare/v1.3.0...v1.4.0) (2018-07-08)
 
 

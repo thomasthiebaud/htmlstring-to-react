@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/thomasthiebaud/htmldom-to-react/compare/v1.5.0...v1.6.0) (2018-07-08)
+
+
+### Update
+
+* Reorganize code to be more efficient ([d9579c5c05f7e73dbc0e85f397c00c5f02297376](https://github.com/thomasthiebaud/htmldom-to-react/commit/d9579c5c05f7e73dbc0e85f397c00c5f02297376))
+
 # [1.5.0](https://github.com/thomasthiebaud/htmldom-to-react/compare/v1.4.0...v1.5.0) (2018-07-08)
 
 

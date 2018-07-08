@@ -1,144 +1,68 @@
-import { render, shallow } from 'enzyme'
+import { shallow } from 'enzyme'
 import * as React from 'react'
 
-import { NodeType } from '../src/ast'
-import { renderElement, renderElements, transform } from '../src/react'
+import { render } from '../src/react'
+
+function shallowWrapper(elements: React.ReactNode[]) {
+  return shallow(React.createElement('div', null, elements))
+}
 
 describe('React', () => {
-  describe('#transform', () => {
-    it('should remove event handler from attributes', () => {
-      const element = {
-        attributes: {
-          onclick: 'wazaaa',
-        },
-        name: 'button',
-        type: NodeType.ELEMENT_NODE,
-        value: null,
-      }
+  describe('#render', () => {
+    it('should render a element node', () => {
+      const div = document.createElement('div')
+      const link = document.createElement('a')
+      link.textContent = 'Link'
+      link.setAttribute('key', 'link')
+      div.appendChild(link)
 
-      expect(transform(element)).toEqual({
-        attributes: {},
-        children: [],
-        name: 'button',
-        type: NodeType.ELEMENT_NODE,
-        value: null,
-      })
+      const wrapper = shallowWrapper(render(div.childNodes))
+      expect(wrapper.find('A').text()).toEqual('Link')
     })
 
-    it('should rename attributes to match react syntax', () => {
-      const element = {
-        attributes: {
-          class: 'wazaaa',
-          for: 'test',
-        },
-        name: 'button',
-        type: NodeType.ELEMENT_NODE,
-        value: null,
-      }
+    it('should render a self closing element', () => {
+      const div = document.createElement('div')
+      const newLine = document.createElement('br')
+      newLine.setAttribute('key', 'test')
+      div.appendChild(newLine)
 
-      expect(transform(element)).toEqual({
-        attributes: {
-          className: 'wazaaa',
-          htmlFor: 'test',
-        },
-        children: [],
-        name: 'button',
-        type: NodeType.ELEMENT_NODE,
-        value: null,
-      })
-    })
-  })
-
-  describe('#renderElement', () => {
-    it('should render a text element', () => {
-      const element = {
-        name: '#text',
-        type: NodeType.TEXT_NODE,
-        value: 'Test',
-      }
-
-      expect(renderElement(element)).toEqual('Test')
+      const wrapper = shallowWrapper(render(div.childNodes))
+      expect(wrapper.find('BR')).toHaveLength(1)
     })
 
-    it('should render a tag element', () => {
-      const element = {
-        attributes: {},
-        children: [],
-        name: 'a',
-        type: NodeType.ELEMENT_NODE,
-        value: 'Link',
-      }
-      const link = shallow(React.createElement('div', null, renderElement(element)))
-      expect(link.text()).toEqual('Link')
+    it('should render a text node', () => {
+      const div = document.createElement('div')
+      const text = document.createTextNode('Text')
+      div.appendChild(text)
+
+      const wrapper = shallowWrapper(render(div.childNodes))
+      expect(wrapper.text()).toEqual('Text')
     })
 
-    it('should render a tag element with attributes', () => {
-      const element = {
-        attributes: {
-          href: '#',
-        },
-        children: [],
-        name: 'a',
-        type: NodeType.ELEMENT_NODE,
-        value: null,
-      }
-      const wrapper = shallow(React.createElement('div', null, renderElement(element)))
-      const link = wrapper.find('a')
-      expect(link.props()).toEqual({ href: '#', children: [] })
+    it('should ignore comments', () => {
+      const div = document.createElement('div')
+      const comment = document.createComment('Comment')
+      div.appendChild(comment)
+
+      const wrapper = shallowWrapper(render(div.childNodes))
+      expect(wrapper.children()).toHaveLength(0)
     })
 
-    it('should render nested tags', () => {
-      const element = {
-        children: [{
-          attributes: {
-            key: '1',
-          },
-          children: [{
-            attributes: {
-              key: '2',
-            },
-            name: '#text',
-            type: NodeType.TEXT_NODE,
-            value: 'text',
-          }],
-          name: 'b',
-          type: NodeType.ELEMENT_NODE,
-          value: null,
-        }],
-        name: 'em',
-        type: NodeType.ELEMENT_NODE,
-        value: null,
-      }
-      const nested = render(React.createElement('div', null, renderElement(element)))
+    it('should transform attributes to match react syntax', () => {
+      const div = document.createElement('div')
+      const span = document.createElement('span')
+      span.setAttribute('for', 'test')
+      span.setAttribute('class', 'test')
+      span.setAttribute('key', 'test')
+      span.setAttribute('onclick', 'console.log("test")')
+      div.appendChild(span)
 
-      const em = nested.find('em')
-      expect(em).toBeDefined()
-
-      const b = nested.find('b')
-      expect(b).toBeDefined()
-
-      const text = b.text()
-      expect(text).toEqual('text')
-    })
-
-    it('should ignore unknown type', () => {
-      const element = {
-        name: 'em',
-        type: -1,
-        value: null,
-      }
-      expect(renderElement(element)).toBeNull()
-    })
-  })
-
-  describe('#renderElements', () => {
-    it('should only render text and tag elements', () => {
-      const elements = [{
-        name: 'a',
-        type: -1,
-        value: 'Link',
-      }]
-      expect(renderElements(elements)).toEqual([])
+      const wrapper = shallowWrapper(render(div.childNodes))
+      expect(wrapper.find('SPAN')).toHaveLength(1)
+      expect(wrapper.find('SPAN').prop('htmlFor')).toEqual('test')
+      expect(wrapper.find('SPAN').prop('className')).toEqual('test')
+      expect(wrapper.find('SPAN').key()).toEqual('test')
+      expect(wrapper.find('SPAN').prop('onclick')).toBeUndefined()
     })
   })
 })

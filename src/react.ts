@@ -1,5 +1,7 @@
 import * as React from 'react'
-import { ASTElement, Attributes, NodeType } from './ast'
+import { getAttributes, NodeType } from './dom'
+
+export interface Attributes { [keyof: string]: string }
 
 const reactAttributesMap: Attributes = {
   acceptcharset: 'acceptCharset',
@@ -49,12 +51,10 @@ const reactAttributesMap: Attributes = {
   usemap: 'useMap',
 }
 
-function transformAttributes(attributes?: Attributes): Attributes {
-  if (!attributes) {
-    return null
-  }
-
+function transformAttributes(attributesMap: NamedNodeMap): Attributes {
+  const attributes = getAttributes(attributesMap)
   const transformedAttributes: Attributes = {}
+
   Object.keys(attributes).forEach((key) => {
     if (!key.startsWith('on')) {
       if (reactAttributesMap[key]) {
@@ -67,38 +67,40 @@ function transformAttributes(attributes?: Attributes): Attributes {
   return transformedAttributes
 }
 
-function transformChildren(children?: ASTElement[]) {
-  return children || []
+function renderTextNode(node: Node & ChildNode) {
+  return node.nodeValue
 }
 
-export function transform(element: ASTElement) {
+function renderElementNode(node: Node & ChildNode) {
+  const element = transform(node as Element)
+
+  if (element.childNodes) {
+    return React.createElement(element.nodeName, element.attributes, render(element.childNodes))
+  }
+  return React.createElement(element.nodeName, element.attributes)
+}
+
+function transform(element: Element) {
   return {
-    ...element,
     attributes: transformAttributes(element.attributes),
-    children: transformChildren(element.children),
+    childNodes: element.childNodes,
+    nodeName: element.nodeName,
+    nodeType: element.nodeType,
+    nodeValue: element.nodeValue,
   }
 }
 
-export function renderElement(element: ASTElement): React.ReactNode {
-  if (element.type === NodeType.TEXT_NODE) {
-    return element.value
-  } else if (element.type === NodeType.ELEMENT_NODE) {
-    const children = element.value ? [
-      element.value,
-      ...renderElements(element.children),
-    ] : renderElements(element.children)
-    return React.createElement(element.name, element.attributes, children)
-  }
+export function render(nodes: NodeListOf<Node & ChildNode>): React.ReactNode[] {
+  const elements = []
+  for (let i = 0; i < nodes.length; i++) {
+    const node = nodes.item(i)
 
-  return null
-}
-
-export function renderElements(ast: ASTElement[]): React.ReactNode[] {
-  return ast.reduce((elements, element) => {
-    // Only keep text and tags. Remove everything else
-    if (element.type === NodeType.ELEMENT_NODE || element.type === NodeType.TEXT_NODE) {
-      elements.push(renderElement(transform(element)))
+    if (node.nodeType === NodeType.TEXT_NODE) {
+      elements.push(renderTextNode(node))
+    } else if (node.nodeType === NodeType.ELEMENT_NODE) {
+      elements.push(renderElementNode(node))
     }
-    return elements
-  }, [])
+  }
+
+  return elements
 }

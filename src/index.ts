@@ -1,7 +1,10 @@
-import getAst from './ast'
-import { renderElements } from './react'
+import * as dom from './dom'
+import { render } from './react'
 
 export function parse(html: string): React.ReactNode[] {
-  const ast = getAst(html)
-  return renderElements(ast)
+  if (typeof html !== 'string') {
+    throw new TypeError('First argument must be a string.')
+  }
+
+  return render(dom.parse(html))
 }

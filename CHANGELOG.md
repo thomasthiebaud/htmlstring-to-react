@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/thomasthiebaud/htmldom-to-react/compare/v1.3.0...v1.4.0) (2018-07-08)
+
+
+### New
+
+* Target es5 ([3bf1d5c5959c35fd4544eaa2fb576e8dc3d5682a](https://github.com/thomasthiebaud/htmldom-to-react/commit/3bf1d5c5959c35fd4544eaa2fb576e8dc3d5682a))
+
 # [1.3.0](https://github.com/thomasthiebaud/htmldom-to-react/compare/v1.2.0...v1.3.0) (2018-07-08)
 
 

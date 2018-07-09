@@ -1,4 +1,24 @@
-import * as deepmerge from 'deepmerge'
+function isObject(item: any) {
+  return (item && typeof item === 'object' && !Array.isArray(item))
+}
+
+function deepMerge(target: any, source: any) {
+  const output = Object.assign({}, target)
+  if (isObject(target) && isObject(source)) {
+    Object.keys(source).forEach((key) => {
+      if (isObject(source[key])) {
+        if (!(key in target)) {
+          Object.assign(output, { [key]: source[key] })
+        } else {
+          output[key] = deepMerge(target[key], source[key])
+        }
+      } else {
+        Object.assign(output, { [key]: source[key] })
+      }
+    })
+  }
+  return output
+}
 
 export interface UserProfiles {
   html?: boolean
@@ -49,8 +69,8 @@ const defaultOptions: Options = {
 
 export function getOptions(options?: Partial<Options>): Options {
   if (options) {
-    return deepmerge.all<Options>([defaultOptions, options, mandatoryOptions])
+    return deepMerge(defaultOptions, deepMerge(options, mandatoryOptions))
   } else {
-    return deepmerge.all<Options>([defaultOptions, mandatoryOptions])
+    return deepMerge(defaultOptions, mandatoryOptions)
   }
 }

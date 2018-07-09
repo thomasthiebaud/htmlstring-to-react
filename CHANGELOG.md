@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/thomasthiebaud/htmldom-to-react/compare/v1.7.0...v1.8.0) (2018-07-09)
+
+
+### Update
+
+* Drop dependency to deepmerge ([a53e48fcdf962ceee526c1d4f30c066c57edff10](https://github.com/thomasthiebaud/htmldom-to-react/commit/a53e48fcdf962ceee526c1d4f30c066c57edff10))
+
 # [1.7.0](https://github.com/thomasthiebaud/htmldom-to-react/compare/v1.6.0...v1.7.0) (2018-07-09)
 
 

@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/thomasthiebaud/htmldom-to-react/compare/v1.6.0...v1.7.0) (2018-07-09)
+
+
+### New
+
+* Sanitize html input ([960cd609d878bc77fd1d8124bc08deba31e90296](https://github.com/thomasthiebaud/htmldom-to-react/commit/960cd609d878bc77fd1d8124bc08deba31e90296))
+
 # [1.6.0](https://github.com/thomasthiebaud/htmldom-to-react/compare/v1.5.0...v1.6.0) (2018-07-08)
 
 

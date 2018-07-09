@@ -17,7 +17,7 @@ describe('React', () => {
       div.appendChild(link)
 
       const wrapper = shallowWrapper(render(div.childNodes))
-      expect(wrapper.find('A').text()).toEqual('Link')
+      expect(wrapper.find('a').text()).toEqual('Link')
     })
 
     it('should render a self closing element', () => {
@@ -27,7 +27,7 @@ describe('React', () => {
       div.appendChild(newLine)
 
       const wrapper = shallowWrapper(render(div.childNodes))
-      expect(wrapper.find('BR')).toHaveLength(1)
+      expect(wrapper.find('br')).toHaveLength(1)
     })
 
     it('should render a text node', () => {
@@ -54,15 +54,13 @@ describe('React', () => {
       span.setAttribute('for', 'test')
       span.setAttribute('class', 'test')
       span.setAttribute('key', 'test')
-      span.setAttribute('onclick', 'console.log("test")')
       div.appendChild(span)
 
       const wrapper = shallowWrapper(render(div.childNodes))
-      expect(wrapper.find('SPAN')).toHaveLength(1)
-      expect(wrapper.find('SPAN').prop('htmlFor')).toEqual('test')
-      expect(wrapper.find('SPAN').prop('className')).toEqual('test')
-      expect(wrapper.find('SPAN').key()).toEqual('test')
-      expect(wrapper.find('SPAN').prop('onclick')).toBeUndefined()
+      expect(wrapper.find('span')).toHaveLength(1)
+      expect(wrapper.find('span').prop('htmlFor')).toEqual('test')
+      expect(wrapper.find('span').prop('className')).toEqual('test')
+      expect(wrapper.find('span').key()).toEqual('test')
     })
   })
 })

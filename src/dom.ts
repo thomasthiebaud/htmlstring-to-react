@@ -1,3 +1,6 @@
+import * as dompurify from 'dompurify'
+import { Options } from './options'
+
 export enum NodeType {
   ELEMENT_NODE = 1,
   TEXT_NODE = 3,
@@ -17,8 +20,7 @@ export function getAttributes(elementAttributes: NamedNodeMap) {
   return attributes
 }
 
-export function parse(html: string): NodeListOf<Node & ChildNode> {
-  const parser = new DOMParser()
-  const document = parser.parseFromString(`<htmldomtoreactroot>${html}</htmldomtoreactroot>`, 'application/xml')
-  return document.childNodes.item(0).childNodes
+export function parse(html: string, options: Options): NodeListOf<Node & ChildNode> {
+  const document = dompurify.sanitize(html, options.dom) as DocumentFragment
+  return document.childNodes
 }

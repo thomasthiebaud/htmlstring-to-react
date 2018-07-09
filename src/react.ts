@@ -1,4 +1,5 @@
 import * as React from 'react'
+
 import { getAttributes, NodeType } from './dom'
 
 export interface Attributes { [keyof: string]: string }
@@ -56,12 +57,10 @@ function transformAttributes(attributesMap: NamedNodeMap): Attributes {
   const transformedAttributes: Attributes = {}
 
   Object.keys(attributes).forEach((key) => {
-    if (!key.startsWith('on')) {
-      if (reactAttributesMap[key]) {
-        transformedAttributes[reactAttributesMap[key]] = attributes[key]
-      } else {
-        transformedAttributes[key] = attributes[key]
-      }
+    if (reactAttributesMap[key]) {
+      transformedAttributes[reactAttributesMap[key]] = attributes[key]
+    } else {
+      transformedAttributes[key] = attributes[key]
     }
   })
   return transformedAttributes
@@ -73,7 +72,6 @@ function renderTextNode(node: Node & ChildNode) {
 
 function renderElementNode(node: Node & ChildNode) {
   const element = transform(node as Element)
-
   if (element.childNodes) {
     return React.createElement(element.nodeName, element.attributes, render(element.childNodes))
   }
@@ -84,7 +82,7 @@ function transform(element: Element) {
   return {
     attributes: transformAttributes(element.attributes),
     childNodes: element.childNodes,
-    nodeName: element.nodeName,
+    nodeName: element.nodeName.toLowerCase(),
     nodeType: element.nodeType,
     nodeValue: element.nodeValue,
   }
@@ -92,6 +90,7 @@ function transform(element: Element) {
 
 export function render(nodes: NodeListOf<Node & ChildNode>): React.ReactNode[] {
   const elements = []
+
   for (let i = 0; i < nodes.length; i++) {
     const node = nodes.item(i)
 

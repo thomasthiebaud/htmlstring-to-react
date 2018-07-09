@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/thomasthiebaud/htmldom-to-react/compare/v1.8.0...v1.9.0) (2018-07-09)
+
+
+### New
+
+* Add support for event handler ([fc4d43b20f8d55d7a150c818e9ccb12fdd5be177](https://github.com/thomasthiebaud/htmldom-to-react/commit/fc4d43b20f8d55d7a150c818e9ccb12fdd5be177))
+
 # [1.8.0](https://github.com/thomasthiebaud/htmldom-to-react/compare/v1.7.0...v1.8.0) (2018-07-09)
 
 

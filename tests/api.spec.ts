@@ -1,4 +1,4 @@
-import { render } from 'enzyme'
+import { render, shallow } from 'enzyme'
 import * as React from 'react'
 
 import * as htmldomToReact from '../src/index'
@@ -23,6 +23,57 @@ describe('Public API', () => {
       expect(wrapper.text()).toEqual('It\' is working')
       expect(wrapper.find('em')).toHaveLength(1)
       expect(wrapper.find('b')).toHaveLength(1)
+    })
+
+    it('should accept event handlers', () => {
+      const spy = jest.fn()
+      const elements = htmldomToReact.parse('<em key="1"><b key="2">It\' is working</b></em>', {
+        eventHandlers: {
+          b: {
+            onClick: spy,
+          },
+        },
+      })
+      const wrapper = shallow(React.createElement('div', null, elements))
+      expect(wrapper.text()).toEqual('It\' is working')
+      expect(wrapper.find('em')).toHaveLength(1)
+      expect(wrapper.find('b')).toHaveLength(1)
+      expect(wrapper.find('b').simulate('click'))
+      expect(spy).toHaveBeenCalled()
+    })
+
+    it('should ignore incorrect event handlers', () => {
+      const spy = jest.fn()
+      const elements = htmldomToReact.parse('<em key="1"><b key="2">It\' is working</b></em>', {
+        eventHandlers: {
+          b: {
+            onclick: spy,
+          },
+        },
+      })
+      const wrapper = shallow(React.createElement('div', null, elements))
+      expect(wrapper.text()).toEqual('It\' is working')
+      expect(wrapper.find('em')).toHaveLength(1)
+      expect(wrapper.find('b')).toHaveLength(1)
+      expect(wrapper.find('b').simulate('click'))
+      expect(spy).toHaveBeenCalledTimes(0)
+    })
+
+    it('should ignore incorrect selectors', () => {
+      const spy = jest.fn()
+      const elements = htmldomToReact.parse('<em key="1"><b key="2">It\' is working</b></em>', {
+        eventHandlers: {
+          span: {
+            onClick: spy,
+          },
+        },
+      })
+      const wrapper = shallow(React.createElement('div', null, elements))
+      expect(wrapper.text()).toEqual('It\' is working')
+      expect(wrapper.find('em')).toHaveLength(1)
+      expect(wrapper.find('b')).toHaveLength(1)
+      expect(wrapper.find('b').simulate('click'))
+      expect(spy).toHaveBeenCalledTimes(0)
     })
   })
 })

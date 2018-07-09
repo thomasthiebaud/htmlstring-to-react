@@ -1,10 +1,11 @@
 import * as React from 'react'
 
 import { getAttributes, NodeType } from './dom'
+import { EnrichedElement, EventHandlers } from './event'
 
-export interface Attributes { [keyof: string]: string }
+export interface Attributes { [keyof: string]: string | React.EventHandler<any> }
 
-const reactAttributesMap: Attributes = {
+const reactAttributesMap: { [keyof: string]: string } = {
   acceptcharset: 'acceptCharset',
   accesskey: 'accessKey',
   allowfullscreen: 'allowFullScreen',
@@ -52,9 +53,15 @@ const reactAttributesMap: Attributes = {
   usemap: 'useMap',
 }
 
-function transformAttributes(attributesMap: NamedNodeMap): Attributes {
+function transformAttributes(attributesMap: NamedNodeMap, eventHandlers: EventHandlers): Attributes {
   const attributes = getAttributes(attributesMap)
   const transformedAttributes: Attributes = {}
+
+  if (eventHandlers) {
+    Object.keys(eventHandlers).forEach((eventHandler) => {
+      transformedAttributes[eventHandler] = eventHandlers[eventHandler]
+    })
+  }
 
   Object.keys(attributes).forEach((key) => {
     if (reactAttributesMap[key]) {
@@ -71,16 +78,16 @@ function renderTextNode(node: Node & ChildNode) {
 }
 
 function renderElementNode(node: Node & ChildNode) {
-  const element = transform(node as Element)
+  const element = transform(node as EnrichedElement)
   if (element.childNodes) {
     return React.createElement(element.nodeName, element.attributes, render(element.childNodes))
   }
   return React.createElement(element.nodeName, element.attributes)
 }
 
-function transform(element: Element) {
+function transform(element: EnrichedElement) {
   return {
-    attributes: transformAttributes(element.attributes),
+    attributes: transformAttributes(element.attributes, element.eventHandlers),
     childNodes: element.childNodes,
     nodeName: element.nodeName.toLowerCase(),
     nodeType: element.nodeType,

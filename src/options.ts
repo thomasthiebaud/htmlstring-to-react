@@ -1,3 +1,5 @@
+import { SelectorsToEventHandlers } from './event'
+
 function isObject(item: any) {
   return (item && typeof item === 'object' && !Array.isArray(item))
 }
@@ -51,8 +53,12 @@ export interface DOMOptions {
 
 export interface Options {
   dom?: DOMOptions
+  eventHandlers?: SelectorsToEventHandlers
 }
 
+/**
+ * Options that cannot be overidden by the user because they are used internaly by the library
+ */
 const mandatoryOptions: Options = {
   dom: {
     RETURN_DOM: false,

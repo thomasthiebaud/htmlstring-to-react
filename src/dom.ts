@@ -1,4 +1,5 @@
 import * as dompurify from 'dompurify'
+
 import { Options } from './options'
 
 export enum NodeType {
@@ -20,7 +21,6 @@ export function getAttributes(elementAttributes: NamedNodeMap) {
   return attributes
 }
 
-export function parse(html: string, options: Options): NodeListOf<Node & ChildNode> {
-  const document = dompurify.sanitize(html, options.dom) as DocumentFragment
-  return document.childNodes
+export function parse(html: string, options: Options): DocumentFragment {
+  return dompurify.sanitize(html, options.dom) as DocumentFragment
 }

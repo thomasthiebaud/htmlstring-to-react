@@ -1,8 +1,5 @@
 analyzeCommits:
   preset: eslint
-  releaseRules:
-  - tag: Docs
-    release: patch
 generateNotes:
   preset: eslint
 prepare:

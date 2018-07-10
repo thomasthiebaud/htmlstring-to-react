@@ -1,23 +1,23 @@
-# htmldom-to-react
+# htmlstring-to-react
 
 ## How to install ?
 
-    npm install htmldom-to-react
+    npm install htmlstring-to-react
     // or
-    yarn add htmldom-to-react
+    yarn add htmlstring-to-react
 
 ## How to use ?
 
 ### Simple example
 
-    import { parse } from 'htmldom-to-react'
+    import { parse } from 'htmlstring-to-react'
     parse('<em key="1"><b key="2">It\' is working</b></em>')
 
 ### Add an event handler
 
 Add an evant handler on all `b` elements
 
-    import { parse } from 'htmldom-to-react'
+    import { parse } from 'htmlstring-to-react'
     parse('<b key="1">It</b> is <b key="2">working</b>', {
       eventHandlers: {
         b: {
@@ -28,7 +28,7 @@ Add an evant handler on all `b` elements
 
 Each key in `eventHandlers` can be a valid css selector.
 
-    import { parse } from 'htmldom-to-react'
+    import { parse } from 'htmlstring-to-react'
     parse('<b key="1">It</b> is <b key="2" class="active">working</b>', {
       eventHandlers: {
         'b.active': {
@@ -41,7 +41,7 @@ Each key in `eventHandlers` can be a valid css selector.
 
 By default, we are sanitizing the html input using `DOMPurify` module. You can override the configuration we are using
 
-    import { parse } from 'htmldom-to-react'
+    import { parse } from 'htmlstring-to-react'
     parse('<b key="1">It</b> is <b key="2" class="active">working</b>', {
       dom: {
         ADD_TAG: ['script']

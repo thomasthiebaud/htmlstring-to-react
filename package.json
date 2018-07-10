@@ -1,5 +1,5 @@
 {
-  "name": "htmldom-to-react",
+  "name": "htmlstring-to-react",
   "version": "1.9.0",
   "description": "Convert HTML DOM to React elements",
   "main": "./lib/index.js",
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/thomasthiebaud/htmldom-to-react.git"
+    "url": "git+https://github.com/thomasthiebaud/htmlstring-to-react.git"
   },
   "author": "Thomas Thiebaud",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/thomasthiebaud/htmldom-to-react/issues"
+    "url": "https://github.com/thomasthiebaud/htmlstring-to-react/issues"
   },
-  "homepage": "https://github.com/thomasthiebaud/htmldom-to-react#readme",
+  "homepage": "https://github.com/thomasthiebaud/htmlstring-to-react#readme",
   "files": [
     "lib",
     "types"

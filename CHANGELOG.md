@@ -1,3 +1,10 @@
+# [3.0.0](https://github.com/thomasthiebaud/htmlstring-to-react/compare/v2.0.0...v3.0.0) (2018-07-10)
+
+
+### Breaking
+
+* Replace eventHandlers by overrides ([9205dc47354c4c65265d4e27d495e4b822c7dc9d](https://github.com/thomasthiebaud/htmlstring-to-react/commit/9205dc47354c4c65265d4e27d495e4b822c7dc9d))
+
 # [2.0.0](https://github.com/thomasthiebaud/htmlstring-to-react/compare/v1.9.0...v2.0.0) (2018-07-10)
 
 

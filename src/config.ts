@@ -29,6 +29,11 @@ export interface UserProfiles {
   svgFilters?: boolean
 }
 
+/**
+ * DOMPurify configuration
+ * The values RETURN_DOM, RETURN_DOM_FRAGMENT and RETURN_DOM_IMPORT cannot be overriden
+ * because they are used internaly by the library
+ */
 export interface DOMConfig {
   ADD_ATTR?: string[]
   ADD_TAGS?: string[]
@@ -51,6 +56,11 @@ export interface DOMConfig {
   WHOLE_DOCUMENT?: boolean
 }
 
+/**
+ * Configuration of the library
+ * The key dom correspond to a DOMPurify configuration
+ * the key eventHandlers allow to attach event handlers to the newly created React element
+ */
 export interface Config {
   dom?: DOMConfig
   eventHandlers?: SelectorsToEventHandlers
@@ -67,6 +77,9 @@ const mandatoryConfig: Config = {
   },
 }
 
+/**
+ * Default configuration that can be overriden by the user
+ */
 const defaultConfig: Config = {
   dom: {
     ADD_ATTR: ['key'],

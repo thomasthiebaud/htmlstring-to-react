@@ -1,10 +1,10 @@
+import { getConfig } from '../src/config'
 import { parse } from '../src/dom'
-import { getOptions } from '../src/options'
 
 describe('DOM', () => {
   describe('#parse', () => {
     it('should sanitize input', () => {
-      const document = parse('This is a <a onclick="console.log(\"WAZAAAA\")">test</a> <script/>', getOptions())
+      const document = parse('This is a <a onclick="console.log(\"WAZAAAA\")">test</a> <script/>', getConfig())
       const children = document.childNodes
       expect(children.length).toEqual(3)
       expect(children.item(0).textContent).toEqual('This is a ')

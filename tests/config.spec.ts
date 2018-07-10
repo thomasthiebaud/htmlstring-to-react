@@ -1,9 +1,9 @@
-import { getOptions } from '../src/options'
+import { getConfig } from '../src/config'
 
 describe('Options', () => {
   describe('#getOptions', () => {
     it('should get default options', () => {
-      const defaultOptions = getOptions()
+      const defaultOptions = getConfig()
       expect(defaultOptions).toEqual({
         dom: {
           ADD_ATTR: ['key'],
@@ -15,7 +15,7 @@ describe('Options', () => {
     })
 
     it('should merge user options and default options', () => {
-      const options = getOptions({
+      const options = getConfig({
         dom: {
           ADD_TAGS: ['script'],
         },
@@ -32,7 +32,7 @@ describe('Options', () => {
     })
 
     it('should not be possible to override mandatory options set internaly by the library', () => {
-      const options = getOptions({
+      const options = getConfig({
         dom: {
           RETURN_DOM_FRAGMENT: false,
         },

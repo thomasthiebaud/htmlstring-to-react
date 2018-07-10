@@ -1,6 +1,6 @@
 import * as dompurify from 'dompurify'
 
-import { Options } from './options'
+import { Config } from './config'
 
 export enum NodeType {
   ELEMENT_NODE = 1,
@@ -21,6 +21,6 @@ export function getAttributes(elementAttributes: NamedNodeMap) {
   return attributes
 }
 
-export function parse(html: string, options: Options): DocumentFragment {
-  return dompurify.sanitize(html, options.dom) as DocumentFragment
+export function parse(html: string, config: Config): DocumentFragment {
+  return dompurify.sanitize(html, config.dom) as DocumentFragment
 }

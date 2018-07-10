@@ -29,7 +29,7 @@ export interface UserProfiles {
   svgFilters?: boolean
 }
 
-export interface DOMOptions {
+export interface DOMConfig {
   ADD_ATTR?: string[]
   ADD_TAGS?: string[]
   ALLOW_DATA_ATTR?: boolean
@@ -51,15 +51,15 @@ export interface DOMOptions {
   WHOLE_DOCUMENT?: boolean
 }
 
-export interface Options {
-  dom?: DOMOptions
+export interface Config {
+  dom?: DOMConfig
   eventHandlers?: SelectorsToEventHandlers
 }
 
 /**
  * Options that cannot be overidden by the user because they are used internaly by the library
  */
-const mandatoryOptions: Options = {
+const mandatoryConfig: Config = {
   dom: {
     RETURN_DOM: false,
     RETURN_DOM_FRAGMENT: true,
@@ -67,16 +67,16 @@ const mandatoryOptions: Options = {
   },
 }
 
-const defaultOptions: Options = {
+const defaultConfig: Config = {
   dom: {
     ADD_ATTR: ['key'],
   },
 }
 
-export function getOptions(options?: Partial<Options>): Options {
-  if (options) {
-    return deepMerge(defaultOptions, deepMerge(options, mandatoryOptions))
+export function getConfig(config?: Partial<Config>): Config {
+  if (config) {
+    return deepMerge(defaultConfig, deepMerge(config, mandatoryConfig))
   } else {
-    return deepMerge(defaultOptions, mandatoryOptions)
+    return deepMerge(defaultConfig, mandatoryConfig)
   }
 }

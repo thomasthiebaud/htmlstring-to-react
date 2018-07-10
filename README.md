@@ -1,5 +1,11 @@
 # htmlstring-to-react
 
+## Why ?
+
+This module provide an easy way to parse a string containing html elements to an array of React elements. It tries to focus to security (using [DOMPurify](https://github.com/cure53/DOMPurify)) and keeping the bundle as small as possible
+
+It is heavily inspired by [html2react](https://github.com/Deschtex/html2react) and [html-react-parser](https://github.com/remarkablemark/html-react-parser)
+
 ## How to install ?
 
     npm install htmlstring-to-react
@@ -13,29 +19,36 @@
     import { parse } from 'htmlstring-to-react'
     parse('<em key="1"><b key="2">It\' is working</b></em>')
 
-### Add an event handler
+### Add an override
 
-Add an evant handler on all `b` elements
+You can use css selectors to override an element
 
     import { parse } from 'htmlstring-to-react'
     parse('<b key="1">It</b> is <b key="2">working</b>', {
-      eventHandlers: {
-        b: {
-          onClick: () => console.log('click'),
-        },
+      overrides: {
+        b: (props, textContent) => <b onClick={console.log('Click')}>{textContent}</b>
       },
     })
 
-Each key in `eventHandlers` can be a valid css selector.
+All valid css selectors works
 
     import { parse } from 'htmlstring-to-react'
     parse('<b key="1">It</b> is <b key="2" class="active">working</b>', {
-      eventHandlers: {
-        'b.active': {
-          onClick: () => console.log('click'),
-        },
+      overrides: {
+        'b.active': (props, textContent) => <b onClick={console.log('Click')}>{textContent}</b>
       },
     })
+
+**IMPORTANT** Overrides do not support nested elements in the current stage, so this code
+
+    import { parse } from 'htmlstring-to-react'
+    parse('<b key="1"><b key="2">It is working</b></b>', {
+      overrides: {
+        b: (props, textContent) => <b onClick={console.log('Click')}>{textContent}</b>
+      },
+    })
+
+will drop the inner `b` but keep the textContent
 
 ### Change dom parsing configuration
 

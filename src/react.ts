@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { getAttributes, NodeType } from './dom'
-import { EnrichedElement, EventHandlers } from './event'
+import { EnrichedElement } from './override'
 
 export interface Attributes { [keyof: string]: string | React.EventHandler<any> }
 
@@ -53,16 +53,9 @@ const reactAttributesMap: { [keyof: string]: string } = {
   usemap: 'useMap',
 }
 
-function transformAttributes(attributesMap: NamedNodeMap, eventHandlers: EventHandlers): Attributes {
+function transformAttributes(attributesMap: NamedNodeMap): Attributes {
   const attributes = getAttributes(attributesMap)
   const transformedAttributes: Attributes = {}
-
-  if (eventHandlers) {
-    Object.keys(eventHandlers).forEach((eventHandler) => {
-      transformedAttributes[eventHandler] = eventHandlers[eventHandler]
-    })
-  }
-
   Object.keys(attributes).forEach((key) => {
     if (reactAttributesMap[key]) {
       transformedAttributes[reactAttributesMap[key]] = attributes[key]
@@ -79,6 +72,11 @@ function renderTextNode(node: Node & ChildNode) {
 
 function renderElementNode(node: Node & ChildNode) {
   const element = transform(node as EnrichedElement)
+
+  if (element.override) {
+    return React.cloneElement(element.override(element.attributes, node.textContent))
+  }
+
   if (element.childNodes) {
     return React.createElement(element.nodeName, element.attributes, render(element.childNodes))
   }
@@ -87,11 +85,12 @@ function renderElementNode(node: Node & ChildNode) {
 
 function transform(element: EnrichedElement) {
   return {
-    attributes: transformAttributes(element.attributes, element.eventHandlers),
+    attributes: transformAttributes(element.attributes),
     childNodes: element.childNodes,
     nodeName: element.nodeName.toLowerCase(),
     nodeType: element.nodeType,
     nodeValue: element.nodeValue,
+    override: element.override,
   }
 }
 

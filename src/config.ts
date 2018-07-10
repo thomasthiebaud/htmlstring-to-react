@@ -1,4 +1,4 @@
-import { SelectorsToEventHandlers } from './event'
+import { SelectorsToElement } from './override'
 
 function isObject(item: any) {
   return (item && typeof item === 'object' && !Array.isArray(item))
@@ -63,7 +63,7 @@ export interface DOMConfig {
  */
 export interface Config {
   dom?: DOMConfig
-  eventHandlers?: SelectorsToEventHandlers
+  overrides?: SelectorsToElement
 }
 
 /**

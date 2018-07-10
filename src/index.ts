@@ -1,6 +1,6 @@
 import { Config, getConfig } from './config'
 import * as dom from './dom'
-import { addEventHandlers } from './event'
+import { override } from './override'
 import { render } from './react'
 
 export function parse(html: string, userOptions?: Config): React.ReactNode[] {
@@ -11,8 +11,8 @@ export function parse(html: string, userOptions?: Config): React.ReactNode[] {
   const options = getConfig(userOptions)
   const document = dom.parse(html, options)
 
-  if (options.eventHandlers) {
-    addEventHandlers(document, options.eventHandlers)
+  if (options.overrides) {
+    override(document, options.overrides)
   }
 
   return render(document.childNodes)

@@ -1,3 +1,19 @@
+# [2.0.0](https://github.com/thomasthiebaud/htmlstring-to-react/compare/v1.9.0...v2.0.0) (2018-07-10)
+
+
+### Breaking
+
+* Rename library to htmlstring-to-react ([53618b62e70d4ea18de0f520ec3fc6e2948890b1](https://github.com/thomasthiebaud/htmlstring-to-react/commit/53618b62e70d4ea18de0f520ec3fc6e2948890b1))
+
+### Chore
+
+* Adapt semantic release rules ([ed5f8d24db7485718e5ff88b03b69c36997de7fb](https://github.com/thomasthiebaud/htmlstring-to-react/commit/ed5f8d24db7485718e5ff88b03b69c36997de7fb))
+* Rename Option to Config ([1bbf91470968ce99b90f743507a0bac1138b5d72](https://github.com/thomasthiebaud/htmlstring-to-react/commit/1bbf91470968ce99b90f743507a0bac1138b5d72))
+
+### Docs
+
+* Document code and write Readme ([54fc996a00e05d705d18351cb7bd31278203cb89](https://github.com/thomasthiebaud/htmlstring-to-react/commit/54fc996a00e05d705d18351cb7bd31278203cb89))
+
 # [1.9.0](https://github.com/thomasthiebaud/htmlstring-to-react/compare/v1.8.0...v1.9.0) (2018-07-09)
 
 

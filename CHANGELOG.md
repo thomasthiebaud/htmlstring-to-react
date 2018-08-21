@@ -1,3 +1,14 @@
+# [3.1.0](https://github.com/thomasthiebaud/htmlstring-to-react/compare/v3.0.0...v3.1.0) (2018-08-21)
+
+
+### New
+
+* Add option to automatically generate keys ([faecda2bc15e0f7f08a1fa1f97b593ebeda0c571](https://github.com/thomasthiebaud/htmlstring-to-react/commit/faecda2bc15e0f7f08a1fa1f97b593ebeda0c571))
+
+### Upgrade
+
+* Keep node modules up to date ([ea8c0994480c1117e78e7a1c245cf4f225d96ee6](https://github.com/thomasthiebaud/htmlstring-to-react/commit/ea8c0994480c1117e78e7a1c245cf4f225d96ee6))
+
 # [3.0.0](https://github.com/thomasthiebaud/htmlstring-to-react/compare/v2.0.0...v3.0.0) (2018-07-10)
 
 

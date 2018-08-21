@@ -15,5 +15,5 @@ export function parse(html: string, userOptions?: Config): React.ReactNode[] {
     override(document, options.overrides)
   }
 
-  return render(document.childNodes)
+  return render(document.childNodes, options)
 }

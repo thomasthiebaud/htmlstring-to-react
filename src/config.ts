@@ -63,7 +63,8 @@ export interface DOMConfig {
  */
 export interface Config {
   dom?: DOMConfig
-  overrides?: SelectorsToElement
+  overrides?: SelectorsToElement,
+  generatesKeys?: boolean,
 }
 
 /**
@@ -84,6 +85,7 @@ const defaultConfig: Config = {
   dom: {
     ADD_ATTR: ['key'],
   },
+  generatesKeys: false,
 }
 
 export function getConfig(config?: Partial<Config>): Config {

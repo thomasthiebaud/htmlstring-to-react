@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+import { Config } from './config'
 import { getAttributes, NodeType } from './dom'
 import { EnrichedElement } from './override'
 
@@ -53,7 +54,7 @@ const reactAttributesMap: { [keyof: string]: string } = {
   usemap: 'useMap',
 }
 
-function transformAttributes(attributesMap: NamedNodeMap): Attributes {
+function transformAttributes(attributesMap: NamedNodeMap, options: Config): Attributes {
   const attributes = getAttributes(attributesMap)
   const transformedAttributes: Attributes = {}
   Object.keys(attributes).forEach((key) => {
@@ -63,6 +64,9 @@ function transformAttributes(attributesMap: NamedNodeMap): Attributes {
       transformedAttributes[key] = attributes[key]
     }
   })
+  if (options.generatesKeys) {
+    transformedAttributes.key = attributes.key || attributes.id || Math.random().toString(36).substr(2, 5)
+  }
   return transformedAttributes
 }
 
@@ -70,22 +74,22 @@ function renderTextNode(node: Node & ChildNode) {
   return node.nodeValue
 }
 
-function renderElementNode(node: Node & ChildNode) {
-  const element = transform(node as EnrichedElement)
+function renderElementNode(node: Node & ChildNode, options: Config) {
+  const element = transform(node as EnrichedElement, options)
 
   if (element.override) {
     return React.cloneElement(element.override(element.attributes, node.textContent))
   }
 
   if (element.childNodes) {
-    return React.createElement(element.nodeName, element.attributes, render(element.childNodes))
+    return React.createElement(element.nodeName, element.attributes, render(element.childNodes, options))
   }
   return React.createElement(element.nodeName, element.attributes)
 }
 
-function transform(element: EnrichedElement) {
+function transform(element: EnrichedElement, options: Config) {
   return {
-    attributes: transformAttributes(element.attributes),
+    attributes: transformAttributes(element.attributes, options),
     childNodes: element.childNodes,
     nodeName: element.nodeName.toLowerCase(),
     nodeType: element.nodeType,
@@ -94,7 +98,7 @@ function transform(element: EnrichedElement) {
   }
 }
 
-export function render(nodes: NodeListOf<Node & ChildNode>): React.ReactNode[] {
+export function render(nodes: NodeListOf<Node & ChildNode>, options: Config): React.ReactNode[] {
   const elements = []
 
   for (let i = 0; i < nodes.length; i++) {
@@ -103,7 +107,7 @@ export function render(nodes: NodeListOf<Node & ChildNode>): React.ReactNode[] {
     if (node.nodeType === NodeType.TEXT_NODE) {
       elements.push(renderTextNode(node))
     } else if (node.nodeType === NodeType.ELEMENT_NODE) {
-      elements.push(renderElementNode(node))
+      elements.push(renderElementNode(node, options))
     }
   }
 

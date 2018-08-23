@@ -45,6 +45,7 @@ export interface DOMConfig {
   FORBID_ATTR?: string[]
   FORBID_TAGS?: string[]
   FORCE_BODY?: boolean
+  IN_PLACE?: boolean
   KEEP_CONTENT?: boolean
   RETURN_DOM?: boolean
   RETURN_DOM_FRAGMENT?: boolean
@@ -64,7 +65,8 @@ export interface DOMConfig {
 export interface Config {
   dom?: DOMConfig
   overrides?: SelectorsToElement,
-  generatesKeys?: boolean,
+  useFragment?: boolean,
+  useAsKey: string[],
 }
 
 /**
@@ -76,6 +78,7 @@ const mandatoryConfig: Config = {
     RETURN_DOM_FRAGMENT: true,
     RETURN_DOM_IMPORT: false,
   },
+  useAsKey: ['key'],
 }
 
 /**
@@ -85,7 +88,8 @@ const defaultConfig: Config = {
   dom: {
     ADD_ATTR: ['key'],
   },
-  generatesKeys: false,
+  useAsKey: ['key'],
+  useFragment: false,
 }
 
 export function getConfig(config?: Partial<Config>): Config {

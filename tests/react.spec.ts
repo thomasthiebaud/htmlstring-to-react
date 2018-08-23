@@ -3,46 +3,12 @@ import * as React from 'react'
 
 import { render } from '../src/react'
 
-function shallowWrapper(elements: React.ReactNode[]) {
+function shallowWrapper(elements: React.ReactNode[] | React.ReactFragment) {
   return shallow(React.createElement('div', null, elements))
 }
 
 describe('React', () => {
   describe('#render', () => {
-    describe('generatesKeys', () => {
-      it('should use key if provided', () => {
-        const div = document.createElement('div')
-        const link = document.createElement('a')
-        link.textContent = 'Link'
-        link.setAttribute('key', 'link')
-        div.appendChild(link)
-
-        const wrapper = shallowWrapper(render(div.childNodes, { generatesKeys: true }))
-        expect(wrapper.find('a').key()).toEqual('link')
-      })
-
-      it('should use id if provided and key is not here', () => {
-        const div = document.createElement('div')
-        const link = document.createElement('a')
-        link.textContent = 'Link'
-        link.setAttribute('id', 'link')
-        div.appendChild(link)
-
-        const wrapper = shallowWrapper(render(div.childNodes, { generatesKeys: true }))
-        expect(wrapper.find('a').key()).toEqual('link')
-      })
-
-      it('should use a random key if key nor id are specified', () => {
-        const div = document.createElement('div')
-        const link = document.createElement('a')
-        link.textContent = 'Link'
-        div.appendChild(link)
-
-        const wrapper = shallowWrapper(render(div.childNodes, { generatesKeys: true }))
-        expect(wrapper.find('a').key()).toHaveLength(5)
-      })
-    })
-
     it('should render a element node', () => {
       const div = document.createElement('div')
       const link = document.createElement('a')
@@ -50,7 +16,7 @@ describe('React', () => {
       link.setAttribute('key', 'link')
       div.appendChild(link)
 
-      const wrapper = shallowWrapper(render(div.childNodes, {}))
+      const wrapper = shallowWrapper(render(div.childNodes, { useAsKey: ['key'] }))
       expect(wrapper.find('a').text()).toEqual('Link')
     })
 
@@ -60,7 +26,7 @@ describe('React', () => {
       newLine.setAttribute('key', 'test')
       div.appendChild(newLine)
 
-      const wrapper = shallowWrapper(render(div.childNodes, {}))
+      const wrapper = shallowWrapper(render(div.childNodes, { useAsKey: ['key'] }))
       expect(wrapper.find('br')).toHaveLength(1)
     })
 
@@ -69,7 +35,7 @@ describe('React', () => {
       const text = document.createTextNode('Text')
       div.appendChild(text)
 
-      const wrapper = shallowWrapper(render(div.childNodes, {}))
+      const wrapper = shallowWrapper(render(div.childNodes, { useAsKey: ['key'] }))
       expect(wrapper.text()).toEqual('Text')
     })
 
@@ -78,7 +44,7 @@ describe('React', () => {
       const comment = document.createComment('Comment')
       div.appendChild(comment)
 
-      const wrapper = shallowWrapper(render(div.childNodes, {}))
+      const wrapper = shallowWrapper(render(div.childNodes, { useAsKey: ['key'] }))
       expect(wrapper.children()).toHaveLength(0)
     })
 
@@ -90,11 +56,59 @@ describe('React', () => {
       span.setAttribute('key', 'test')
       div.appendChild(span)
 
-      const wrapper = shallowWrapper(render(div.childNodes, {}))
+      const wrapper = shallowWrapper(render(div.childNodes, { useAsKey: ['key'] }))
       expect(wrapper.find('span')).toHaveLength(1)
       expect(wrapper.find('span').prop('htmlFor')).toEqual('test')
       expect(wrapper.find('span').prop('className')).toEqual('test')
       expect(wrapper.find('span').key()).toEqual('test')
+    })
+  })
+
+  describe('Options', () => {
+    describe('#useFragment', () => {
+      it('should return a Fragment', () => {
+        const div = document.createElement('div')
+        const link = document.createElement('a')
+        link.textContent = 'Link'
+        div.appendChild(link)
+
+        const wrapper = shallowWrapper(render(div.childNodes, { useFragment: true, useAsKey: ['key'] }))
+        expect(wrapper.find('a').text()).toEqual('Link')
+      })
+    })
+
+    describe('#useAsKey', () => {
+      it('should use key as a default key', () => {
+        const div = document.createElement('div')
+        const link = document.createElement('a')
+        link.textContent = 'Link'
+        link.setAttribute('key', 'link')
+        div.appendChild(link)
+
+        const wrapper = shallowWrapper(render(div.childNodes, { useFragment: true, useAsKey: ['key'] }))
+        expect(wrapper.find('a').key()).toEqual('link')
+      })
+
+      it('should use other element in the list as fallback key', () => {
+        const div = document.createElement('div')
+        const link = document.createElement('a')
+        link.textContent = 'Link'
+        link.setAttribute('class', 'fallback key')
+        div.appendChild(link)
+
+        const wrapper = shallowWrapper(render(div.childNodes, { useFragment: true, useAsKey: ['key', 'id', 'class'] }))
+        expect(wrapper.find('a').key()).toEqual('fallback key')
+      })
+
+      it('should use null if no key match', () => {
+        const div = document.createElement('div')
+        const link = document.createElement('a')
+        link.textContent = 'Link'
+        div.appendChild(link)
+
+        const wrapper = shallowWrapper(render(div.childNodes, { useFragment: true, useAsKey: ['key', 'id'] }))
+        expect(wrapper.find('a').key()).toEqual(null)
+      })
     })
   })
 })

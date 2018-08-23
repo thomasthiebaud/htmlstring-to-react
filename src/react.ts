@@ -63,10 +63,16 @@ function transformAttributes(attributesMap: NamedNodeMap, options: Config): Attr
     } else {
       transformedAttributes[key] = attributes[key]
     }
+
+    if (!transformedAttributes.key) {
+      const isKey = options.useAsKey.some((possibleKey) => possibleKey === key)
+
+      if (isKey) {
+        transformedAttributes.key = attributes[key]
+      }
+    }
   })
-  if (options.generatesKeys) {
-    transformedAttributes.key = attributes.key || attributes.id || Math.random().toString(36).substr(2, 5)
-  }
+
   return transformedAttributes
 }
 
@@ -98,8 +104,8 @@ function transform(element: EnrichedElement, options: Config) {
   }
 }
 
-export function render(nodes: NodeListOf<Node & ChildNode>, options: Config): React.ReactNode[] {
-  const elements = []
+export function render(nodes: NodeListOf<Node & ChildNode>, options: Config): React.ReactNode[] | React.ReactFragment {
+  const elements: React.ReactNode[] = []
 
   for (let i = 0; i < nodes.length; i++) {
     const node = nodes.item(i)
@@ -111,5 +117,8 @@ export function render(nodes: NodeListOf<Node & ChildNode>, options: Config): Re
     }
   }
 
+  if (options.useFragment) {
+    return React.createElement(React.Fragment, null, ...elements)
+  }
   return elements
 }

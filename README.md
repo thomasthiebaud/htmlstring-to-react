@@ -63,6 +63,11 @@ By default, we are sanitizing the html input using `DOMPurify` module. You can o
 
 **IMPORTANT** You cannot override `RETURN_DOM`, `RETURN_DOM_FRAGMENT` and `RETURN_DOM_IMPORT` because they are used internaly by the library.
 
+### Other options
+
+**useFragment** (default `false`): Return a Fragment instead of an array.
+**useAsKey** (default `[key]`): Ordered list of attributes to use as a key. Use the first one that matches or `null`
+
 ## How to contribute ?
 
 This repo enforce commit style so the release process is automatic. Commits must look like:

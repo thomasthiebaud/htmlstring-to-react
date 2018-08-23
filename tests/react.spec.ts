@@ -76,39 +76,5 @@ describe('React', () => {
         expect(wrapper.find('a').text()).toEqual('Link')
       })
     })
-
-    describe('#generatesKeys', () => {
-      it('should use key if provided', () => {
-        const div = document.createElement('div')
-        const link = document.createElement('a')
-        link.textContent = 'Link'
-        link.setAttribute('key', 'link')
-        div.appendChild(link)
-
-        const wrapper = shallowWrapper(render(div.childNodes, { generatesKeys: true }))
-        expect(wrapper.find('a').key()).toEqual('link')
-      })
-
-      it('should use id if provided and key is not here', () => {
-        const div = document.createElement('div')
-        const link = document.createElement('a')
-        link.textContent = 'Link'
-        link.setAttribute('id', 'link')
-        div.appendChild(link)
-
-        const wrapper = shallowWrapper(render(div.childNodes, { generatesKeys: true }))
-        expect(wrapper.find('a').key()).toEqual('link')
-      })
-
-      it('should use a random key if key nor id are specified', () => {
-        const div = document.createElement('div')
-        const link = document.createElement('a')
-        link.textContent = 'Link'
-        div.appendChild(link)
-
-        const wrapper = shallowWrapper(render(div.childNodes, { generatesKeys: true }))
-        expect(wrapper.find('a').key()).toHaveLength(5)
-      })
-    })
   })
 })

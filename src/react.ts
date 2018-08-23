@@ -54,7 +54,7 @@ const reactAttributesMap: { [keyof: string]: string } = {
   usemap: 'useMap',
 }
 
-function transformAttributes(attributesMap: NamedNodeMap, options: Config): Attributes {
+function transformAttributes(attributesMap: NamedNodeMap): Attributes {
   const attributes = getAttributes(attributesMap)
   const transformedAttributes: Attributes = {}
   Object.keys(attributes).forEach((key) => {
@@ -64,9 +64,6 @@ function transformAttributes(attributesMap: NamedNodeMap, options: Config): Attr
       transformedAttributes[key] = attributes[key]
     }
   })
-  if (options.generatesKeys) {
-    transformedAttributes.key = attributes.key || attributes.id || Math.random().toString(36).substr(2, 5)
-  }
   return transformedAttributes
 }
 
@@ -75,7 +72,7 @@ function renderTextNode(node: Node & ChildNode) {
 }
 
 function renderElementNode(node: Node & ChildNode, options: Config) {
-  const element = transform(node as EnrichedElement, options)
+  const element = transform(node as EnrichedElement)
 
   if (element.override) {
     return React.cloneElement(element.override(element.attributes, node.textContent))
@@ -87,9 +84,9 @@ function renderElementNode(node: Node & ChildNode, options: Config) {
   return React.createElement(element.nodeName, element.attributes)
 }
 
-function transform(element: EnrichedElement, options: Config) {
+function transform(element: EnrichedElement) {
   return {
-    attributes: transformAttributes(element.attributes, options),
+    attributes: transformAttributes(element.attributes),
     childNodes: element.childNodes,
     nodeName: element.nodeName.toLowerCase(),
     nodeType: element.nodeType,

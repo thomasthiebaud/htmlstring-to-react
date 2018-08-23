@@ -54,7 +54,7 @@ const reactAttributesMap: { [keyof: string]: string } = {
   usemap: 'useMap',
 }
 
-function transformAttributes(attributesMap: NamedNodeMap): Attributes {
+function transformAttributes(attributesMap: NamedNodeMap, options: Config): Attributes {
   const attributes = getAttributes(attributesMap)
   const transformedAttributes: Attributes = {}
   Object.keys(attributes).forEach((key) => {
@@ -63,7 +63,16 @@ function transformAttributes(attributesMap: NamedNodeMap): Attributes {
     } else {
       transformedAttributes[key] = attributes[key]
     }
+
+    if (!transformedAttributes.key) {
+      const isKey = options.useAsKey.some((possibleKey) => possibleKey === key)
+
+      if (isKey) {
+        transformedAttributes.key = attributes[key]
+      }
+    }
   })
+
   return transformedAttributes
 }
 
@@ -72,7 +81,7 @@ function renderTextNode(node: Node & ChildNode) {
 }
 
 function renderElementNode(node: Node & ChildNode, options: Config) {
-  const element = transform(node as EnrichedElement)
+  const element = transform(node as EnrichedElement, options)
 
   if (element.override) {
     return React.cloneElement(element.override(element.attributes, node.textContent))
@@ -84,9 +93,9 @@ function renderElementNode(node: Node & ChildNode, options: Config) {
   return React.createElement(element.nodeName, element.attributes)
 }
 
-function transform(element: EnrichedElement) {
+function transform(element: EnrichedElement, options: Config) {
   return {
-    attributes: transformAttributes(element.attributes),
+    attributes: transformAttributes(element.attributes, options),
     childNodes: element.childNodes,
     nodeName: element.nodeName.toLowerCase(),
     nodeType: element.nodeType,

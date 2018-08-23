@@ -65,6 +65,7 @@ export interface Config {
   dom?: DOMConfig
   overrides?: SelectorsToElement,
   useFragment?: boolean,
+  useAsKey: string[],
 }
 
 /**
@@ -76,6 +77,7 @@ const mandatoryConfig: Config = {
     RETURN_DOM_FRAGMENT: true,
     RETURN_DOM_IMPORT: false,
   },
+  useAsKey: ['key'],
 }
 
 /**
@@ -85,6 +87,7 @@ const defaultConfig: Config = {
   dom: {
     ADD_ATTR: ['key'],
   },
+  useAsKey: ['key'],
   useFragment: false,
 }
 

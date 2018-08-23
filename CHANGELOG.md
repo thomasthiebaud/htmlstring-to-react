@@ -1,3 +1,23 @@
+# [4.0.0](https://github.com/thomasthiebaud/htmlstring-to-react/compare/v3.1.0...v4.0.0) (2018-08-23)
+
+
+### Breaking
+
+* Remove generatesKeys option ([7fd8a702e8629f808e4383da047db7097f5e04e3](https://github.com/thomasthiebaud/htmlstring-to-react/commit/7fd8a702e8629f808e4383da047db7097f5e04e3))
+
+### Docs
+
+* Update documentation with new options ([3f5c3e23622c0ed937907c9afb01e0ce0f2b03f4](https://github.com/thomasthiebaud/htmlstring-to-react/commit/3f5c3e23622c0ed937907c9afb01e0ce0f2b03f4))
+
+### Fix
+
+* Add missing DomPurify option ([07a46d36ae30d7f5f0460765f8d9f8b778a643b1](https://github.com/thomasthiebaud/htmlstring-to-react/commit/07a46d36ae30d7f5f0460765f8d9f8b778a643b1))
+
+### New
+
+* Add option to return React.Fragment ([75ed1cf03d8a36da4e6fd3c753ee22fa794be799](https://github.com/thomasthiebaud/htmlstring-to-react/commit/75ed1cf03d8a36da4e6fd3c753ee22fa794be799))
+* Add useAsKey option ([ca0be04e89be6bb1fcda14f6b28c9b28aaae5b29](https://github.com/thomasthiebaud/htmlstring-to-react/commit/ca0be04e89be6bb1fcda14f6b28c9b28aaae5b29))
+
 # [3.1.0](https://github.com/thomasthiebaud/htmlstring-to-react/compare/v3.0.0...v3.1.0) (2018-08-21)
 
 

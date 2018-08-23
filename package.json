@@ -9,7 +9,8 @@
     "commitmsg": "commitlint -E GIT_PARAMS",
     "lint": "tslint --project .",
     "lint:fix": "tslint --fix --project .",
-    "test": "jest --config ./config/jest.config.js"
+    "test": "jest --config ./config/jest.config.js",
+    "test:watch": "jest --config ./config/jest.config.js --watch"
   },
   "repository": {
     "type": "git",

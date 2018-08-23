@@ -3,46 +3,12 @@ import * as React from 'react'
 
 import { render } from '../src/react'
 
-function shallowWrapper(elements: React.ReactNode[]) {
+function shallowWrapper(elements: React.ReactNode[] | React.ReactFragment) {
   return shallow(React.createElement('div', null, elements))
 }
 
 describe('React', () => {
   describe('#render', () => {
-    describe('generatesKeys', () => {
-      it('should use key if provided', () => {
-        const div = document.createElement('div')
-        const link = document.createElement('a')
-        link.textContent = 'Link'
-        link.setAttribute('key', 'link')
-        div.appendChild(link)
-
-        const wrapper = shallowWrapper(render(div.childNodes, { generatesKeys: true }))
-        expect(wrapper.find('a').key()).toEqual('link')
-      })
-
-      it('should use id if provided and key is not here', () => {
-        const div = document.createElement('div')
-        const link = document.createElement('a')
-        link.textContent = 'Link'
-        link.setAttribute('id', 'link')
-        div.appendChild(link)
-
-        const wrapper = shallowWrapper(render(div.childNodes, { generatesKeys: true }))
-        expect(wrapper.find('a').key()).toEqual('link')
-      })
-
-      it('should use a random key if key nor id are specified', () => {
-        const div = document.createElement('div')
-        const link = document.createElement('a')
-        link.textContent = 'Link'
-        div.appendChild(link)
-
-        const wrapper = shallowWrapper(render(div.childNodes, { generatesKeys: true }))
-        expect(wrapper.find('a').key()).toHaveLength(5)
-      })
-    })
-
     it('should render a element node', () => {
       const div = document.createElement('div')
       const link = document.createElement('a')
@@ -95,6 +61,54 @@ describe('React', () => {
       expect(wrapper.find('span').prop('htmlFor')).toEqual('test')
       expect(wrapper.find('span').prop('className')).toEqual('test')
       expect(wrapper.find('span').key()).toEqual('test')
+    })
+  })
+
+  describe('Options', () => {
+    describe('#useFragment', () => {
+      it('should return a Fragment', () => {
+        const div = document.createElement('div')
+        const link = document.createElement('a')
+        link.textContent = 'Link'
+        div.appendChild(link)
+
+        const wrapper = shallowWrapper(render(div.childNodes, { useFragment: true }))
+        expect(wrapper.find('a').text()).toEqual('Link')
+      })
+    })
+
+    describe('#generatesKeys', () => {
+      it('should use key if provided', () => {
+        const div = document.createElement('div')
+        const link = document.createElement('a')
+        link.textContent = 'Link'
+        link.setAttribute('key', 'link')
+        div.appendChild(link)
+
+        const wrapper = shallowWrapper(render(div.childNodes, { generatesKeys: true }))
+        expect(wrapper.find('a').key()).toEqual('link')
+      })
+
+      it('should use id if provided and key is not here', () => {
+        const div = document.createElement('div')
+        const link = document.createElement('a')
+        link.textContent = 'Link'
+        link.setAttribute('id', 'link')
+        div.appendChild(link)
+
+        const wrapper = shallowWrapper(render(div.childNodes, { generatesKeys: true }))
+        expect(wrapper.find('a').key()).toEqual('link')
+      })
+
+      it('should use a random key if key nor id are specified', () => {
+        const div = document.createElement('div')
+        const link = document.createElement('a')
+        link.textContent = 'Link'
+        div.appendChild(link)
+
+        const wrapper = shallowWrapper(render(div.childNodes, { generatesKeys: true }))
+        expect(wrapper.find('a').key()).toHaveLength(5)
+      })
     })
   })
 })

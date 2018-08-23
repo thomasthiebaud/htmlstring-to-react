@@ -45,6 +45,7 @@ export interface DOMConfig {
   FORBID_ATTR?: string[]
   FORBID_TAGS?: string[]
   FORCE_BODY?: boolean
+  IN_PLACE?: boolean
   KEEP_CONTENT?: boolean
   RETURN_DOM?: boolean
   RETURN_DOM_FRAGMENT?: boolean

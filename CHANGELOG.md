@@ -1,3 +1,15 @@
+## [4.0.1](https://github.com/thomasthiebaud/htmlstring-to-react/compare/v4.0.0...v4.0.1) (2018-08-31)
+
+
+### Docs
+
+* Display options as a list ([76e3ca773a39b7094be62a9ab1d6b0bec7879c6b](https://github.com/thomasthiebaud/htmlstring-to-react/commit/76e3ca773a39b7094be62a9ab1d6b0bec7879c6b))
+* Fix typo in options usage ([de48e506b60d60e496db35b744da89362c339e86](https://github.com/thomasthiebaud/htmlstring-to-react/commit/de48e506b60d60e496db35b744da89362c339e86))
+
+### Fix
+
+* Correctly check if childNodes is set ([695fe50f8c61887dd6d4b9309537c07de09dcb2f](https://github.com/thomasthiebaud/htmlstring-to-react/commit/695fe50f8c61887dd6d4b9309537c07de09dcb2f))
+
 # [4.0.0](https://github.com/thomasthiebaud/htmlstring-to-react/compare/v3.1.0...v4.0.0) (2018-08-23)
 
 

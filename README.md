@@ -66,7 +66,7 @@ By default, we are sanitizing the html input using `DOMPurify` module. You can o
 ### Other options
 
 - **useFragment** (default `false`): Return a Fragment instead of an array.
-- **useAsKey** (default `[key]`): Ordered list of attributes to use as a key. Use the first one that matches or `null`
+- **useAsKey** (default `['key']`): Ordered list of attributes to use as a key. Use the first one that matches or `null`
 
 ## How to contribute ?
 

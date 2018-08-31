@@ -87,7 +87,7 @@ function renderElementNode(node: Node & ChildNode, options: Config) {
     return React.cloneElement(element.override(element.attributes, node.textContent))
   }
 
-  if (element.childNodes) {
+  if (element.childNodes && element.childNodes.length > 0) {
     return React.createElement(element.nodeName, element.attributes, render(element.childNodes, options))
   }
   return React.createElement(element.nodeName, element.attributes)

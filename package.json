@@ -3,6 +3,7 @@
   "version": "4.0.1",
   "description": "Convert HTML DOM to React elements",
   "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "scripts": {
     "build": "npm run clean && tsc --project .",
     "clean": "rimraf lib/ types/ yarn-error.log npm-debug.log",

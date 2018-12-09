@@ -41,7 +41,7 @@ export interface DOMConfig {
   ALLOW_UNKNOWN_PROTOCOLS?: boolean
   ALLOWED_ATTR?: string[]
   ALLOWED_TAGS?: string[]
-  ALLOWED_URI_REGEXP?: boolean
+  ALLOWED_URI_REGEXP?: RegExp
   FORBID_ATTR?: string[]
   FORBID_TAGS?: string[]
   FORCE_BODY?: boolean
@@ -66,7 +66,7 @@ export interface Config {
   dom?: DOMConfig
   overrides?: SelectorsToElement,
   useFragment?: boolean,
-  useAsKey: string[],
+  useAsKey?: string[],
 }
 
 /**

@@ -1,3 +1,14 @@
+## [4.0.3](https://github.com/thomasthiebaud/htmlstring-to-react/compare/v4.0.2...v4.0.3) (2019-03-30)
+
+
+### Chore
+
+* Update dependencies ([d0b4a4d7aa9a44cc1f5571966fc8fa8e11cd4beb](https://github.com/thomasthiebaud/htmlstring-to-react/commit/d0b4a4d7aa9a44cc1f5571966fc8fa8e11cd4beb))
+
+### Fix
+
+* Add types ([cf9ba0062912e17b5af5e62e47c76371e45361fe](https://github.com/thomasthiebaud/htmlstring-to-react/commit/cf9ba0062912e17b5af5e62e47c76371e45361fe))
+
 ## [4.0.2](https://github.com/thomasthiebaud/htmlstring-to-react/compare/v4.0.1...v4.0.2) (2018-12-09)
 
 

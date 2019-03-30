@@ -3,9 +3,10 @@
   "version": "4.0.2",
   "description": "Convert HTML DOM to React elements",
   "main": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "scripts": {
     "build": "npm run clean && tsc --project .",
-    "clean": "rimraf lib/ types/ yarn-error.log npm-debug.log",
+    "clean": "rimraf lib/ yarn-error.log npm-debug.log",
     "lint": "tslint --project .",
     "lint:fix": "tslint --fix --project .",
     "test": "jest --config ./config/jest.config.js",

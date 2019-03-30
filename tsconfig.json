@@ -10,8 +10,7 @@
     "noImplicitAny": true,
     "outDir": "lib",
     "sourceMap": true,
-    "target": "es5",
-    "declarationDir": "types"
+    "target": "es5"
   },
   "include": [
     "./src/**/*"

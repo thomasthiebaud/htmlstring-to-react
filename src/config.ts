@@ -65,7 +65,6 @@ export interface DOMConfig {
 export interface Config {
   dom?: DOMConfig
   overrides?: SelectorsToElement,
-  useFragment?: boolean,
   useAsKey?: string[],
 }
 
@@ -89,7 +88,6 @@ const defaultConfig: Config = {
     ADD_ATTR: ['key'],
   },
   useAsKey: ['key'],
-  useFragment: false,
 }
 
 export function getConfig(config?: Partial<Config>): Config {

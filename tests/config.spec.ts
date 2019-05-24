@@ -12,7 +12,6 @@ describe('Options', () => {
           RETURN_DOM_IMPORT: false,
         },
         useAsKey: ['key'],
-        useFragment: false,
       })
     })
 
@@ -31,7 +30,6 @@ describe('Options', () => {
           RETURN_DOM_IMPORT: false,
         },
         useAsKey: ['key'],
-        useFragment: false,
       })
     })
 
@@ -49,7 +47,6 @@ describe('Options', () => {
           RETURN_DOM_IMPORT: false,
         },
         useAsKey: ['key'],
-        useFragment: false,
       })
     })
   })

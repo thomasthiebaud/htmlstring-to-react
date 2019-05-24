@@ -104,7 +104,7 @@ function transform(element: EnrichedElement, options: Config) {
   }
 }
 
-export function render(nodes: NodeListOf<Node & ChildNode>, options: Config): React.ReactNode[] | React.ReactFragment {
+export function render(nodes: NodeListOf<Node & ChildNode>, options: Config): React.ReactNode[] {
   const elements: React.ReactNode[] = []
 
   for (let i = 0; i < nodes.length; i++) {
@@ -117,8 +117,5 @@ export function render(nodes: NodeListOf<Node & ChildNode>, options: Config): Re
     }
   }
 
-  if (options.useFragment) {
-    return React.createElement(React.Fragment, null, ...elements)
-  }
   return elements
 }

@@ -1,3 +1,19 @@
+# [5.0.0](https://github.com/thomasthiebaud/htmlstring-to-react/compare/v4.0.3...v5.0.0) (2019-05-24)
+
+
+### Breaking
+
+* Remove useFragment option ([03586f59289a3f0b71afe280d235bec22c1d0dbb](https://github.com/thomasthiebaud/htmlstring-to-react/commit/03586f59289a3f0b71afe280d235bec22c1d0dbb))
+
+### Chore
+
+* Improve jest configuration ([a3b37447fcc43a83ccf89d26d1229fc57f3a3318](https://github.com/thomasthiebaud/htmlstring-to-react/commit/a3b37447fcc43a83ccf89d26d1229fc57f3a3318))
+* Switch to eslint ([e69c8876d24bd53bbca60d330fff6b212325cdb1](https://github.com/thomasthiebaud/htmlstring-to-react/commit/e69c8876d24bd53bbca60d330fff6b212325cdb1))
+
+### Upgrade
+
+* Update dependencies ([813adf0e044e173ce714526c9ec757a2dcc41bfe](https://github.com/thomasthiebaud/htmlstring-to-react/commit/813adf0e044e173ce714526c9ec757a2dcc41bfe))
+
 ## [4.0.3](https://github.com/thomasthiebaud/htmlstring-to-react/compare/v4.0.2...v4.0.3) (2019-03-30)
 
 

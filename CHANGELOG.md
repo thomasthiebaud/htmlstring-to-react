@@ -1,3 +1,10 @@
+## [5.0.1](https://github.com/thomasthiebaud/htmlstring-to-react/compare/v5.0.0...v5.0.1) (2019-05-24)
+
+
+### Fix
+
+* Update type definitions ([f3779359b9654fe107a89a8febf12a1ca9eefeaa](https://github.com/thomasthiebaud/htmlstring-to-react/commit/f3779359b9654fe107a89a8febf12a1ca9eefeaa))
+
 # [5.0.0](https://github.com/thomasthiebaud/htmlstring-to-react/compare/v4.0.3...v5.0.0) (2019-05-24)
 
 

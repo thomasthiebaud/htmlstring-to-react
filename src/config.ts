@@ -1,32 +1,32 @@
-import { SelectorsToElement } from './override'
+import { SelectorsToElement } from './override';
 
 function isObject(item: any) {
-  return (item && typeof item === 'object' && !Array.isArray(item))
+  return item && typeof item === 'object' && !Array.isArray(item);
 }
 
 function deepMerge(target: any, source: any) {
-  const output = Object.assign({}, target)
+  const output = Object.assign({}, target);
   if (isObject(target) && isObject(source)) {
-    Object.keys(source).forEach((key) => {
+    Object.keys(source).forEach(key => {
       if (isObject(source[key])) {
         if (!(key in target)) {
-          Object.assign(output, { [key]: source[key] })
+          Object.assign(output, { [key]: source[key] });
         } else {
-          output[key] = deepMerge(target[key], source[key])
+          output[key] = deepMerge(target[key], source[key]);
         }
       } else {
-        Object.assign(output, { [key]: source[key] })
+        Object.assign(output, { [key]: source[key] });
       }
-    })
+    });
   }
-  return output
+  return output;
 }
 
 export interface UserProfiles {
-  html?: boolean
-  mathMl?: boolean
-  svg?: boolean
-  svgFilters?: boolean
+  html?: boolean;
+  mathMl?: boolean;
+  svg?: boolean;
+  svgFilters?: boolean;
 }
 
 /**
@@ -35,26 +35,26 @@ export interface UserProfiles {
  * because they are used internaly by the library
  */
 export interface DOMConfig {
-  ADD_ATTR?: string[]
-  ADD_TAGS?: string[]
-  ALLOW_DATA_ATTR?: boolean
-  ALLOW_UNKNOWN_PROTOCOLS?: boolean
-  ALLOWED_ATTR?: string[]
-  ALLOWED_TAGS?: string[]
-  ALLOWED_URI_REGEXP?: RegExp
-  FORBID_ATTR?: string[]
-  FORBID_TAGS?: string[]
-  FORCE_BODY?: boolean
-  IN_PLACE?: boolean
-  KEEP_CONTENT?: boolean
-  RETURN_DOM?: boolean
-  RETURN_DOM_FRAGMENT?: boolean
-  RETURN_DOM_IMPORT?: boolean
-  SAFE_FOR_JQUERY?: boolean
-  SAFE_FOR_TEMPLATES?: boolean
-  SANITIZE_DOM?: boolean
-  USE_PROFILES?: UserProfiles
-  WHOLE_DOCUMENT?: boolean
+  ADD_ATTR?: string[];
+  ADD_TAGS?: string[];
+  ALLOW_DATA_ATTR?: boolean;
+  ALLOW_UNKNOWN_PROTOCOLS?: boolean;
+  ALLOWED_ATTR?: string[];
+  ALLOWED_TAGS?: string[];
+  ALLOWED_URI_REGEXP?: RegExp;
+  FORBID_ATTR?: string[];
+  FORBID_TAGS?: string[];
+  FORCE_BODY?: boolean;
+  IN_PLACE?: boolean;
+  KEEP_CONTENT?: boolean;
+  RETURN_DOM?: boolean;
+  RETURN_DOM_FRAGMENT?: boolean;
+  RETURN_DOM_IMPORT?: boolean;
+  SAFE_FOR_JQUERY?: boolean;
+  SAFE_FOR_TEMPLATES?: boolean;
+  SANITIZE_DOM?: boolean;
+  USE_PROFILES?: UserProfiles;
+  WHOLE_DOCUMENT?: boolean;
 }
 
 /**
@@ -63,9 +63,9 @@ export interface DOMConfig {
  * the key eventHandlers allow to attach event handlers to the newly created React element
  */
 export interface Config {
-  dom?: DOMConfig
-  overrides?: SelectorsToElement,
-  useAsKey?: string[],
+  dom?: DOMConfig;
+  overrides?: SelectorsToElement;
+  useAsKey?: string[];
 }
 
 /**
@@ -78,7 +78,7 @@ const mandatoryConfig: Config = {
     RETURN_DOM_IMPORT: false,
   },
   useAsKey: ['key'],
-}
+};
 
 /**
  * Default configuration that can be overriden by the user
@@ -88,12 +88,12 @@ const defaultConfig: Config = {
     ADD_ATTR: ['key'],
   },
   useAsKey: ['key'],
-}
+};
 
 export function getConfig(config?: Partial<Config>): Config {
   if (config) {
-    return deepMerge(defaultConfig, deepMerge(config, mandatoryConfig))
+    return deepMerge(defaultConfig, deepMerge(config, mandatoryConfig));
   } else {
-    return deepMerge(defaultConfig, mandatoryConfig)
+    return deepMerge(defaultConfig, mandatoryConfig);
   }
 }

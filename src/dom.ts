@@ -1,6 +1,6 @@
-import * as dompurify from 'dompurify'
+import * as dompurify from 'dompurify';
 
-import { Config } from './config'
+import { Config } from './config';
 
 export enum NodeType {
   ELEMENT_NODE = 1,
@@ -13,14 +13,14 @@ export enum NodeType {
 }
 
 export function getAttributes(elementAttributes: NamedNodeMap) {
-  const attributes: { [keyof: string]: string } = {}
+  const attributes: { [keyof: string]: string } = {};
   for (let i = 0; i < elementAttributes.length; i++) {
-      const attribute = elementAttributes.item(i)
-      attributes[attribute.nodeName] = attribute.nodeValue
+    const attribute = elementAttributes.item(i);
+    attributes[attribute.nodeName] = attribute.nodeValue;
   }
-  return attributes
+  return attributes;
 }
 
 export function parse(html: string, config: Config): DocumentFragment {
-  return dompurify.sanitize(html, config.dom) as DocumentFragment
+  return dompurify.sanitize(html, config.dom) as DocumentFragment;
 }

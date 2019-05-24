@@ -1,9 +1,9 @@
-import { getConfig } from '../src/config'
+import { getConfig } from '../src/config';
 
 describe('Options', () => {
   describe('#getOptions', () => {
     it('should get default options', () => {
-      const defaultOptions = getConfig()
+      const defaultOptions = getConfig();
       expect(defaultOptions).toEqual({
         dom: {
           ADD_ATTR: ['key'],
@@ -12,15 +12,15 @@ describe('Options', () => {
           RETURN_DOM_IMPORT: false,
         },
         useAsKey: ['key'],
-      })
-    })
+      });
+    });
 
     it('should merge user options and default options', () => {
       const options = getConfig({
         dom: {
           ADD_TAGS: ['script'],
         },
-      })
+      });
       expect(options).toEqual({
         dom: {
           ADD_ATTR: ['key'],
@@ -30,15 +30,15 @@ describe('Options', () => {
           RETURN_DOM_IMPORT: false,
         },
         useAsKey: ['key'],
-      })
-    })
+      });
+    });
 
     it('should not be possible to override mandatory options set internaly by the library', () => {
       const options = getConfig({
         dom: {
           RETURN_DOM_FRAGMENT: false,
         },
-      })
+      });
       expect(options).toEqual({
         dom: {
           ADD_ATTR: ['key'],
@@ -47,7 +47,7 @@ describe('Options', () => {
           RETURN_DOM_IMPORT: false,
         },
         useAsKey: ['key'],
-      })
-    })
-  })
-})
+      });
+    });
+  });
+});

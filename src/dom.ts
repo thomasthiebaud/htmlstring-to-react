@@ -1,4 +1,4 @@
-import * as dompurify from 'dompurify';
+import * as createDOMPurify from 'dompurify';
 
 import { Config } from './config';
 
@@ -21,6 +21,11 @@ export function getAttributes(elementAttributes: NamedNodeMap) {
   return attributes;
 }
 
-export function parse(html: string, config: Config): DocumentFragment {
-  return dompurify.sanitize(html, config.dom) as DocumentFragment;
+export function parse(
+  html: string,
+  config: Config,
+  customWindow?: Window
+): DocumentFragment {
+  const dompurifyInstance = createDOMPurify(customWindow);
+  return dompurifyInstance.sanitize(html, config.dom) as DocumentFragment;
 }

@@ -1,3 +1,10 @@
+# [5.1.0](https://github.com/thomasthiebaud/htmlstring-to-react/compare/v5.0.1...v5.1.0) (2019-06-15)
+
+
+### New
+
+* Support ReactNode ([5e3bb4b9bd35e2adb469b625da8691785ddac190](https://github.com/thomasthiebaud/htmlstring-to-react/commit/5e3bb4b9bd35e2adb469b625da8691785ddac190))
+
 ## [5.0.1](https://github.com/thomasthiebaud/htmlstring-to-react/compare/v5.0.0...v5.0.1) (2019-05-24)
 
 

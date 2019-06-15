@@ -3,9 +3,12 @@ import * as dom from './dom';
 import { override } from './override';
 import { render } from './react';
 
-export function parse(html: string, userOptions?: Config): React.ReactNode[] {
+export function parse(
+  html: React.ReactNode,
+  userOptions?: Config
+): React.ReactNode[] {
   if (typeof html !== 'string') {
-    throw new TypeError('First argument must be a string.');
+    return [html];
   }
 
   const options = getConfig(userOptions);

@@ -9,12 +9,8 @@ describe('Public API', () => {
   });
 
   describe('#parse', () => {
-    it('should throw an error if the first parameter is not a string', done => {
-      try {
-        htmlStringToReact.parse(null);
-      } catch (err) {
-        done();
-      }
+    it('should ignore the input if the format is not supported', () => {
+      expect(htmlStringToReact.parse(null)).toEqual([null]);
     });
 
     it('should convert a string to an array of react nodes', () => {

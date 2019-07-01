@@ -53,7 +53,9 @@
     "typescript": "3.4.5"
   },
   "dependencies": {
-    "dompurify": "1.0.10"
+    "@types/jsdom": "12.2.3",
+    "dompurify": "1.0.10",
+    "jsdom": "15.1.1"
   },
   "peerDependencies": {
     "react": "^16.2.0"
@@ -64,12 +66,26 @@
     }
   },
   "jest": {
-    "preset": "ts-jest",
-    "moduleNameMapper": {
-      "\\.(css|less|sass|scss)$": "<rootDir>/tests/styleMock.js"
-    },
-    "setupFilesAfterEnv": [
-      "<rootDir>tests/setupTests.js"
+    "projects": [
+      {
+        "displayName": "test-jsdom",
+        "testEnvironment": "jsdom",
+        "preset": "ts-jest",
+        "setupFilesAfterEnv": [
+          "<rootDir>tests/setupTests.js"
+        ]
+      },
+      {
+        "displayName": "test-nodejs",
+        "testEnvironment": "node",
+        "preset": "ts-jest",
+        "setupFilesAfterEnv": [
+          "<rootDir>tests/setupTests.js"
+        ],
+        "testMatch": [
+          "**/?(*.)+(node-spec).ts?(x)"
+        ]
+      }
     ]
   }
 }

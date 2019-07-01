@@ -1,70 +1,28 @@
 import * as React from 'react';
+import possibleStandardNames from './possible-standard-names';
 
 import { Config } from './config';
 import { getAttributes, NodeType } from './dom';
 import { EnrichedElement } from './override';
 
-export interface Attributes {
-  [keyof: string]: string | React.EventHandler<any>;
-}
+export interface AvailableProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [keyof: string]: string | React.EventHandler<any> | any;
 
-const reactAttributesMap: { [keyof: string]: string } = {
-  acceptcharset: 'acceptCharset',
-  accesskey: 'accessKey',
-  allowfullscreen: 'allowFullScreen',
-  autocomplete: 'autoComplete',
-  autofocus: 'autoFocus',
-  autoplay: 'autoPlay',
-  cellpadding: 'cellPadding',
-  cellspacing: 'cellSpacing',
-  charset: 'charSet',
-  class: 'className',
-  classid: 'classID',
-  colspan: 'colSpan',
-  contenteditable: 'contentEditable',
-  contextmenu: 'contextMenu',
-  controlslist: 'controlsList',
-  crossorigin: 'crossOrigin',
-  datetime: 'dateTime',
-  enctype: 'encType',
-  for: 'htmlFor',
-  formaction: 'formAction',
-  formenctype: 'formEncType',
-  formmethod: 'formMethod',
-  formnovalidate: 'formNoValidate',
-  formtarget: 'formTarget',
-  frameborder: 'frameBorder',
-  hreflang: 'hrefLang',
-  httpequiv: 'httpEquiv',
-  inputmode: 'inputMode',
-  keyparams: 'keyParams',
-  keyyype: 'keyType',
-  marginheight: 'marginHeight',
-  marginwidth: 'marginWidth',
-  maxlength: 'maxLength',
-  mediagroup: 'mediaGroup',
-  minlength: 'minLength',
-  novalidate: 'noValidate',
-  radiogroup: 'radioGroup',
-  readonly: 'readOnly',
-  rowspan: 'rowSpan',
-  spellcheck: 'spellCheck',
-  srcdoc: 'srcDoc',
-  srclang: 'srcLang',
-  srcset: 'srcSet',
-  tabindex: 'tabIndex',
-  usemap: 'useMap',
-};
+  // TODO: Add props from possibleStandardNames
+  className?: string;
+  children?: React.ReactNode | React.ReactNode[];
+}
 
 function transformAttributes(
   attributesMap: NamedNodeMap,
   options: Config
-): Attributes {
+): AvailableProps {
   const attributes = getAttributes(attributesMap);
-  const transformedAttributes: Attributes = {};
+  const transformedAttributes: AvailableProps = {};
   Object.keys(attributes).forEach(key => {
-    if (reactAttributesMap[key]) {
-      transformedAttributes[reactAttributesMap[key]] = attributes[key];
+    if (possibleStandardNames[key]) {
+      transformedAttributes[possibleStandardNames[key]] = attributes[key];
     } else {
       transformedAttributes[key] = attributes[key];
     }
@@ -98,20 +56,31 @@ function transform(element: EnrichedElement, options: Config) {
 
 function renderElementNode(node: Node & ChildNode, options: Config) {
   const element = transform(node as EnrichedElement, options);
+  const hasChildren = element.childNodes && element.childNodes.length > 0;
 
   if (element.override) {
+    let attributesForOverride = element.attributes;
+    if (hasChildren) {
+      attributesForOverride = {
+        ...attributesForOverride,
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define
+        children: render(element.childNodes, options),
+      };
+    }
     return React.cloneElement(
-      element.override(element.attributes, node.textContent)
+      element.override(attributesForOverride, node.textContent)
     );
   }
 
-  if (element.childNodes && element.childNodes.length > 0) {
+  if (hasChildren) {
     return React.createElement(
       element.nodeName,
       element.attributes,
-      render(element.childNodes, options) // eslint-disable-line
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
+      render(element.childNodes, options)
     );
   }
+
   return React.createElement(element.nodeName, element.attributes);
 }
 

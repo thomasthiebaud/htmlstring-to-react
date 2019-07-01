@@ -1,7 +1,9 @@
-import { render, shallow } from 'enzyme';
-import * as React from 'react';
+import fs from 'fs';
+import React from 'react';
+import { render, shallow, ShallowWrapper } from 'enzyme';
 
 import * as htmlStringToReact from '../src/index';
+import exampleHTML from './assets/index.html';
 
 describe('Public API', () => {
   it('should export a parse function', () => {
@@ -133,6 +135,41 @@ describe('Public API', () => {
       expect(wrapper.find('b')).toHaveLength(1);
       expect(wrapper.find('b').simulate('click'));
       expect(spy).toHaveBeenCalledTimes(0);
+    });
+
+    describe('with nested overrides', () => {
+      let elementsTree: ShallowWrapper;
+      beforeEach(() => {
+        const elements = htmlStringToReact.parse(exampleHTML, {
+          dom: {
+            ALLOWED_TAGS: ['main', 'section', 'p', 'span', 'b'],
+            ADD_TAGS: [],
+          },
+          overrides: {
+            'p.warning-content-only': (props, textContent) => (
+              <p className={props.className}>{textContent}</p>
+            ),
+            'p.warning-with-children': props => (
+              <p className={props.className}>{props.children}</p>
+            ),
+            b: props => <b>{props.children}</b>,
+          },
+        });
+        elementsTree = shallow(<div>{elements}</div>);
+        console.log(elementsTree);
+      });
+
+      it('should remove nested elements if textContent argument is used as a child', () => {
+        const pWithTextContentOnly = elementsTree.find(
+          'p.warning-content-only'
+        );
+        expect(pWithTextContentOnly.find('b')).toHaveLength(0);
+      });
+
+      it('should render nested elements if props.children is used as a child', () => {
+        const pWithChildren = elementsTree.find('p.warning-with-children');
+        expect(pWithChildren.find('b')).toHaveLength(2);
+      });
     });
   });
 });

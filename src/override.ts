@@ -1,6 +1,8 @@
 /**
  * An internal representation of an element that can include a React element to use as an override
  */
+import { AvailableProps } from './react';
+
 export interface EnrichedElement extends Element {
   override?: (props: any, textContent?: string) => React.ReactElement<any>;
 }
@@ -10,7 +12,7 @@ export interface EnrichedElement extends Element {
  */
 export interface SelectorsToElement {
   [keyof: string]: (
-    props?: any,
+    props?: AvailableProps,
     textContent?: string
   ) => React.ReactElement<any>;
 }

@@ -1,4 +1,4 @@
-import * as createDOMPurify from 'dompurify';
+import createDOMPurify from 'dompurify';
 
 import { Config } from './config';
 

@@ -60,5 +60,6 @@ typings/
 # next.js build output
 .next
 
-lib
-types
+# Temporarily add lib and types to git
+# lib
+# types

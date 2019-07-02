@@ -5,8 +5,6 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
-    "install": "npm run is_not_builded && npm run build",
-    "is_not_builded": "node -e 'fs.existsSync(`lib`) && process.exit(1)'",
     "build": "npm run clean && tsc --project .",
     "clean": "rimraf lib/ yarn-error.log npm-debug.log",
     "lint": "eslint . --ext .ts",

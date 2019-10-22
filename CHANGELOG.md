@@ -1,3 +1,18 @@
+# [5.2.0](https://github.com/thomasthiebaud/htmlstring-to-react/compare/v5.1.0...v5.2.0) (2019-10-22)
+
+
+### chore
+
+* remove .commitlintrc file ([a18d522c6dd9660821fee5fda4dd84f23e224406](https://github.com/thomasthiebaud/htmlstring-to-react/commit/a18d522c6dd9660821fee5fda4dd84f23e224406))
+
+### Chore
+
+* Critical vulnerabilities ([f598524273ba1d0e0c7ad84265c35cfffe4d9b83](https://github.com/thomasthiebaud/htmlstring-to-react/commit/f598524273ba1d0e0c7ad84265c35cfffe4d9b83))
+
+### Update
+
+* Replace commitlint by @commitlint/cli ([cf2c882fb0d1763bc0cbd85a2d3a82083e70b852](https://github.com/thomasthiebaud/htmlstring-to-react/commit/cf2c882fb0d1763bc0cbd85a2d3a82083e70b852))
+
 # [5.1.0](https://github.com/thomasthiebaud/htmlstring-to-react/compare/v5.0.1...v5.1.0) (2019-06-15)
 
 

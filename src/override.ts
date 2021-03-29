@@ -19,7 +19,7 @@ export function override(
   document: DocumentFragment,
   selectorsToElement: SelectorsToElement
 ) {
-  Object.keys(selectorsToElement).forEach(selector => {
+  Object.keys(selectorsToElement).forEach((selector) => {
     const reactElement = selectorsToElement[selector];
 
     const elements = document.querySelectorAll(selector);

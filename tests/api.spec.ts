@@ -61,30 +61,10 @@ describe('Public API', () => {
       const wrapper = shallow(React.createElement('div', null, elements));
       expect(wrapper.text()).toEqual('It is working');
       expect(wrapper.find('b')).toHaveLength(2);
-      expect(
-        wrapper
-          .find('b')
-          .at(0)
-          .key()
-      ).toBeNull();
-      expect(
-        wrapper
-          .find('b')
-          .at(1)
-          .key()
-      ).toBeNull();
-      expect(
-        wrapper
-          .find('b')
-          .at(0)
-          .simulate('click')
-      );
-      expect(
-        wrapper
-          .find('b')
-          .at(1)
-          .simulate('click')
-      );
+      expect(wrapper.find('b').at(0).key()).toBeNull();
+      expect(wrapper.find('b').at(1).key()).toBeNull();
+      expect(wrapper.find('b').at(0).simulate('click'));
+      expect(wrapper.find('b').at(1).simulate('click'));
       expect(spy).toHaveBeenCalledTimes(2);
     });
 
@@ -102,18 +82,8 @@ describe('Public API', () => {
       const wrapper = shallow(React.createElement('div', null, elements));
       expect(wrapper.text()).toEqual('It is working');
       expect(wrapper.find('b')).toHaveLength(1);
-      expect(
-        wrapper
-          .find('b')
-          .at(0)
-          .key()
-      ).toBeNull();
-      expect(
-        wrapper
-          .find('b')
-          .at(0)
-          .simulate('click')
-      );
+      expect(wrapper.find('b').at(0).key()).toBeNull();
+      expect(wrapper.find('b').at(0).simulate('click'));
       expect(spy).toHaveBeenCalledTimes(1);
     });
 

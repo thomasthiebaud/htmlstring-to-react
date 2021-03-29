@@ -62,7 +62,7 @@ function transformAttributes(
 ): Attributes {
   const attributes = getAttributes(attributesMap);
   const transformedAttributes: Attributes = {};
-  Object.keys(attributes).forEach(key => {
+  Object.keys(attributes).forEach((key) => {
     if (reactAttributesMap[key]) {
       transformedAttributes[reactAttributesMap[key]] = attributes[key];
     } else {
@@ -70,7 +70,7 @@ function transformAttributes(
     }
 
     if (!transformedAttributes.key) {
-      const isKey = options.useAsKey.some(possibleKey => possibleKey === key);
+      const isKey = options.useAsKey.some((possibleKey) => possibleKey === key);
 
       if (isKey) {
         transformedAttributes.key = attributes[key];

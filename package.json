@@ -10,7 +10,7 @@
     "postpublish": "pinst --enable",
     "build": "npm run clean && tsc --project .",
     "clean": "rimraf lib/ yarn-error.log npm-debug.log",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint --ext .ts .",
     "lint:fix": "npm run lint -- --fix",
     "test": "jest",
     "start": "jest --watch"

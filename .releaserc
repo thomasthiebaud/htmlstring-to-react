@@ -1,16 +1,15 @@
-analyzeCommits:
-  preset: eslint
-generateNotes:
-  preset: eslint
-prepare:
+plugins:
+- "@semantic-release/commit-analyzer"
+- "@semantic-release/release-notes-generator"
 - "@semantic-release/changelog"
 - "@semantic-release/npm"
-- path: "@semantic-release/git"
-  assets:
-  - package.json
-  - package-lock.json
-  - CHANGELOG.md
-  message: |-
-    Chore: Release ${nextRelease.version} [skip ci]
+- - "@semantic-release/git"
+  - assets:
+    - package.json
+    - package-lock.json
+    - CHANGELOG.md
+    message: |-
+      chore: release ${nextRelease.version} [skip ci]
 
-    ${nextRelease.notes}
+      ${nextRelease.notes}
+- "@semantic-release/github"

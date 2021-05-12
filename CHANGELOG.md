@@ -1,3 +1,11 @@
+## [5.2.1](https://github.com/thomasthiebaud/htmlstring-to-react/compare/v5.2.0...v5.2.1) (2021-05-12)
+
+
+### Bug Fixes
+
+* update dependencies to fix vulnerabilities ([6c396dd](https://github.com/thomasthiebaud/htmlstring-to-react/commit/6c396ddc992e4cb7a96f41ae718b768a0da5f6b4))
+* update dependencies to fix vulnerabilities ([adf7815](https://github.com/thomasthiebaud/htmlstring-to-react/commit/adf78151545d64146a820f24152642907cd5d490))
+
 # [5.2.0](https://github.com/thomasthiebaud/htmlstring-to-react/compare/v5.1.0...v5.2.0) (2019-10-22)
 
 

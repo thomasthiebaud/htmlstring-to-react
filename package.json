@@ -1,6 +1,6 @@
 {
   "name": "htmlstring-to-react",
-  "version": "5.2.2",
+  "version": "5.2.3",
   "description": "Convert HTML DOM to React elements",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",

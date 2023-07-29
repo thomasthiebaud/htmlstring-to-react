@@ -1,4 +1,5 @@
-import { render, shallow } from 'enzyme';
+import '@testing-library/jest-dom';
+import { render, fireEvent } from '@testing-library/react';
 import * as React from 'react';
 
 import * as htmlStringToReact from '../src/index';
@@ -17,10 +18,12 @@ describe('Public API', () => {
       const elements = htmlStringToReact.parse(
         '<em key="1"><b key="2">It\' is working</b></em>'
       );
-      const wrapper = render(React.createElement('div', null, elements));
-      expect(wrapper.text()).toEqual("It' is working");
-      expect(wrapper.find('em')).toHaveLength(1);
-      expect(wrapper.find('b')).toHaveLength(1);
+      const { container } = render(React.createElement('div', null, elements));
+      expect(container.querySelector('div')).toHaveTextContent(
+        "It' is working"
+      );
+      expect(container.querySelector('em')?.childNodes).toHaveLength(1);
+      expect(container.querySelector('b')?.childNodes).toHaveLength(1);
     });
 
     it('should override using a React element', () => {
@@ -38,12 +41,13 @@ describe('Public API', () => {
           },
         }
       );
-      const wrapper = shallow(React.createElement('div', null, elements));
-      expect(wrapper.text()).toEqual("It' is working");
-      expect(wrapper.find('em')).toHaveLength(1);
-      expect(wrapper.find('b')).toHaveLength(1);
-      expect(wrapper.find('b').key()).toEqual('2');
-      expect(wrapper.find('b').simulate('click'));
+      const { container } = render(React.createElement('div', null, elements));
+      expect(container).toHaveTextContent("It' is working");
+      expect(container.querySelectorAll('em')).toHaveLength(1);
+      expect(container.querySelectorAll('em')[0].childNodes).toHaveLength(1);
+      expect(container.querySelectorAll('b')).toHaveLength(1);
+      expect(container.querySelectorAll('b')[0].childNodes).toHaveLength(1);
+      fireEvent.click(container.querySelectorAll('b')[0]);
       expect(spy).toHaveBeenCalled();
     });
 
@@ -58,13 +62,11 @@ describe('Public API', () => {
           },
         }
       );
-      const wrapper = shallow(React.createElement('div', null, elements));
-      expect(wrapper.text()).toEqual('It is working');
-      expect(wrapper.find('b')).toHaveLength(2);
-      expect(wrapper.find('b').at(0).key()).toBeNull();
-      expect(wrapper.find('b').at(1).key()).toBeNull();
-      expect(wrapper.find('b').at(0).simulate('click'));
-      expect(wrapper.find('b').at(1).simulate('click'));
+      const { container } = render(React.createElement('div', null, elements));
+      expect(container).toHaveTextContent('It is working');
+      expect(container.querySelectorAll('b')).toHaveLength(2);
+      fireEvent.click(container.querySelectorAll('b')[0]);
+      fireEvent.click(container.querySelectorAll('b')[1]);
       expect(spy).toHaveBeenCalledTimes(2);
     });
 
@@ -79,11 +81,10 @@ describe('Public API', () => {
           },
         }
       );
-      const wrapper = shallow(React.createElement('div', null, elements));
-      expect(wrapper.text()).toEqual('It is working');
-      expect(wrapper.find('b')).toHaveLength(1);
-      expect(wrapper.find('b').at(0).key()).toBeNull();
-      expect(wrapper.find('b').at(0).simulate('click'));
+      const { container } = render(React.createElement('div', null, elements));
+      expect(container).toHaveTextContent('It is working');
+      expect(container.querySelectorAll('b')).toHaveLength(1);
+      fireEvent.click(container.querySelectorAll('b')[0]);
       expect(spy).toHaveBeenCalledTimes(1);
     });
 
@@ -93,15 +94,16 @@ describe('Public API', () => {
         '<em key="1"><b key="2">It\' is working</b></em>',
         {
           overrides: {
+            // @ts-ignore test passing invalid selector
             span: () => null,
           },
         }
       );
-      const wrapper = shallow(React.createElement('div', null, elements));
-      expect(wrapper.text()).toEqual("It' is working");
-      expect(wrapper.find('em')).toHaveLength(1);
-      expect(wrapper.find('b')).toHaveLength(1);
-      expect(wrapper.find('b').simulate('click'));
+      const { container } = render(React.createElement('div', null, elements));
+      expect(container).toHaveTextContent("It' is working");
+      expect(container.querySelectorAll('em')).toHaveLength(1);
+      expect(container.querySelectorAll('b')).toHaveLength(1);
+      fireEvent.click(container.querySelectorAll('b')[0]);
       expect(spy).toHaveBeenCalledTimes(0);
     });
   });

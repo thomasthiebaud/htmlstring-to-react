@@ -1,10 +1,11 @@
-import { shallow } from 'enzyme';
+import '@testing-library/jest-dom';
+import { render as testRender } from '@testing-library/react';
 import * as React from 'react';
 
 import { render } from '../src/react';
 
-function shallowWrapper(elements: React.ReactNode[] | React.ReactFragment) {
-  return shallow(React.createElement('div', null, elements));
+function testWrapper(elements: React.ReactNode[] | React.ReactFragment) {
+  return testRender(React.createElement('div', null, elements));
 }
 
 describe('React', () => {
@@ -16,10 +17,10 @@ describe('React', () => {
       link.setAttribute('key', 'link');
       div.appendChild(link);
 
-      const wrapper = shallowWrapper(
+      const { container } = testWrapper(
         render(div.childNodes, { useAsKey: ['key'] })
       );
-      expect(wrapper.find('a').text()).toEqual('Link');
+      expect(container.querySelector('a')).toHaveTextContent('Link');
     });
 
     it('should render a self closing element', () => {
@@ -28,10 +29,10 @@ describe('React', () => {
       newLine.setAttribute('key', 'test');
       div.appendChild(newLine);
 
-      const wrapper = shallowWrapper(
+      const { container } = testWrapper(
         render(div.childNodes, { useAsKey: ['key'] })
       );
-      expect(wrapper.find('br')).toHaveLength(1);
+      expect(container.querySelectorAll('br')).toHaveLength(1);
     });
 
     it('should render a text node', () => {
@@ -39,10 +40,10 @@ describe('React', () => {
       const text = document.createTextNode('Text');
       div.appendChild(text);
 
-      const wrapper = shallowWrapper(
+      const { container } = testWrapper(
         render(div.childNodes, { useAsKey: ['key'] })
       );
-      expect(wrapper.text()).toEqual('Text');
+      expect(container).toHaveTextContent('Text');
     });
 
     it('should ignore comments', () => {
@@ -50,10 +51,15 @@ describe('React', () => {
       const comment = document.createComment('Comment');
       div.appendChild(comment);
 
-      const wrapper = shallowWrapper(
-        render(div.childNodes, { useAsKey: ['key'] })
-      );
-      expect(wrapper.children()).toHaveLength(0);
+      const nodes = render(div.childNodes, { useAsKey: ['key'] });
+      const elems: React.ReactElement[] = [];
+
+      for (const node of nodes) {
+        if (React.isValidElement(node)) {
+          elems.push(node);
+        }
+      }
+      expect(elems).toHaveLength(0);
     });
 
     it('should transform attributes to match react syntax', () => {
@@ -64,13 +70,19 @@ describe('React', () => {
       span.setAttribute('key', 'test');
       div.appendChild(span);
 
-      const wrapper = shallowWrapper(
-        render(div.childNodes, { useAsKey: ['key'] })
-      );
-      expect(wrapper.find('span')).toHaveLength(1);
-      expect(wrapper.find('span').prop('htmlFor')).toEqual('test');
-      expect(wrapper.find('span').prop('className')).toEqual('test');
-      expect(wrapper.find('span').key()).toEqual('test');
+      const nodes = render(div.childNodes, { useAsKey: ['key'] });
+      const elems: React.ReactElement[] = [];
+
+      for (const node of nodes) {
+        if (React.isValidElement(node)) {
+          elems.push(node);
+        }
+      }
+      expect(elems).toHaveLength(1);
+      expect(elems[0].type).toEqual('span');
+      expect(elems[0].props.htmlFor).toEqual('test');
+      expect(elems[0].props.className).toEqual('test');
+      expect(elems[0].key).toEqual('test');
     });
   });
 
@@ -83,10 +95,17 @@ describe('React', () => {
         link.setAttribute('key', 'link');
         div.appendChild(link);
 
-        const wrapper = shallowWrapper(
-          render(div.childNodes, { useAsKey: ['key'] })
-        );
-        expect(wrapper.find('a').key()).toEqual('link');
+        const nodes = render(div.childNodes, { useAsKey: ['key'] });
+        const elems: React.ReactElement[] = [];
+
+        for (const node of nodes) {
+          if (React.isValidElement(node)) {
+            elems.push(node);
+          }
+        }
+        expect(elems).toHaveLength(1);
+        expect(elems[0].type).toEqual('a');
+        expect(elems[0].key).toEqual('link');
       });
 
       it('should use other element in the list as fallback key', () => {
@@ -96,10 +115,19 @@ describe('React', () => {
         link.setAttribute('class', 'fallback key');
         div.appendChild(link);
 
-        const wrapper = shallowWrapper(
-          render(div.childNodes, { useAsKey: ['key', 'id', 'class'] })
-        );
-        expect(wrapper.find('a').key()).toEqual('fallback key');
+        const nodes = render(div.childNodes, {
+          useAsKey: ['key', 'id', 'class'],
+        });
+        const elems: React.ReactElement[] = [];
+
+        for (const node of nodes) {
+          if (React.isValidElement(node)) {
+            elems.push(node);
+          }
+        }
+        expect(elems).toHaveLength(1);
+        expect(elems[0].type).toEqual('a');
+        expect(elems[0].key).toEqual('fallback key');
       });
 
       it('should use null if no key match', () => {
@@ -108,10 +136,17 @@ describe('React', () => {
         link.textContent = 'Link';
         div.appendChild(link);
 
-        const wrapper = shallowWrapper(
-          render(div.childNodes, { useAsKey: ['key', 'id'] })
-        );
-        expect(wrapper.find('a').key()).toEqual(null);
+        const nodes = render(div.childNodes, { useAsKey: ['key', 'id'] });
+        const elems: React.ReactElement[] = [];
+
+        for (const node of nodes) {
+          if (React.isValidElement(node)) {
+            elems.push(node);
+          }
+        }
+        expect(elems).toHaveLength(1);
+        expect(elems[0].type).toEqual('a');
+        expect(elems[0].key).toEqual(null);
       });
     });
   });

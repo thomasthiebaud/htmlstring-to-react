@@ -1,3 +1,16 @@
+# [6.0.0](https://github.com/thomasthiebaud/htmlstring-to-react/compare/v5.3.1...v6.0.0) (2023-07-30)
+
+
+### chore
+
+* update dompurify to v3 ([67a89b1](https://github.com/thomasthiebaud/htmlstring-to-react/commit/67a89b19736f4c7a32bfbd886e107a8b2ba7a7fe))
+
+
+### BREAKING CHANGES
+
+* update dompurify from v2 to v3.
+See the corresponding changelog https://github.com/cure53/DOMPurify/releases/tag/3.0.0
+
 ## [5.3.1](https://github.com/thomasthiebaud/htmlstring-to-react/compare/v5.3.0...v5.3.1) (2023-07-29)
 
 

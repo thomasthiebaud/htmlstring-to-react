@@ -22,5 +22,5 @@ export function getAttributes(elementAttributes: NamedNodeMap) {
 }
 
 export function parse(html: string, config: Config): DocumentFragment {
-  return dompurify.sanitize(html, config.dom) as DocumentFragment;
+  return dompurify.sanitize(html, config.dom) as unknown as DocumentFragment;
 }

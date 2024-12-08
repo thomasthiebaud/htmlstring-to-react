@@ -1,3 +1,13 @@
+# [7.0.0](https://github.com/thomasthiebaud/htmlstring-to-react/compare/v6.0.2...v7.0.0) (2024-12-08)
+
+
+* chore!: drop support for Node 20 ([a1295db](https://github.com/thomasthiebaud/htmlstring-to-react/commit/a1295db4e7de737189519323c612fa27d38b0799))
+
+
+### BREAKING CHANGES
+
+* drop support for Node 20 and require Node 22 LTS or more recent
+
 ## [6.0.2](https://github.com/thomasthiebaud/htmlstring-to-react/compare/v6.0.1...v6.0.2) (2024-12-08)
 
 

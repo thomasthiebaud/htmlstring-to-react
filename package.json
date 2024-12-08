@@ -55,7 +55,7 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
-    "dompurify": "^3.0.8"
+    "dompurify": "^3.2.2"
   },
   "peerDependencies": {
     "react": "^16.2.0 || ^17.0.0 || ^18.0.0"

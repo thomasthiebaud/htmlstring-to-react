@@ -109,7 +109,7 @@ function renderElementNode(node: Node & ChildNode, options: Config) {
     return React.createElement(
       element.nodeName,
       element.attributes,
-      render(element.childNodes, options) // eslint-disable-line
+      render(element.childNodes, options)  
     );
   }
   return React.createElement(element.nodeName, element.attributes);

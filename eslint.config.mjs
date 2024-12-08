@@ -6,6 +6,7 @@ export default tseslint.config(
   tseslint.configs.recommended,
   {
     rules: {
+      "@typescript-eslint/ban-ts-comment": "warn",
       "@typescript-eslint/no-explicit-any": "off",
     },
     ignores: ["node_modules", "lib"]

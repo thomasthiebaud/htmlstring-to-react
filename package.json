@@ -4,6 +4,9 @@
   "description": "Convert HTML DOM to React elements",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "prepare": "husky install",
     "build": "npm run clean && tsc --project .",

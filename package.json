@@ -8,7 +8,7 @@
     "node": ">=22"
   },
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "husky",
     "build": "npm run clean && tsc --project .",
     "clean": "rimraf lib/ yarn-error.log npm-debug.log",
     "lint": "eslint '**/*.ts' '**/*mjs'",
@@ -44,7 +44,7 @@
     "@typescript-eslint/parser": "^8.17.0",
     "conventional-changelog-eslint": "^6.0.0",
     "eslint": "^9.16.0",
-    "husky": "^8.0.3",
+    "husky": "^9.1.7",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "react": "^18.2.0",

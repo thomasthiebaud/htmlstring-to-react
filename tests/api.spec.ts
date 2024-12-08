@@ -94,7 +94,7 @@ describe('Public API', () => {
         '<em key="1"><b key="2">It\' is working</b></em>',
         {
           overrides: {
-            // @ts-ignore test passing invalid selector
+            // @ts-ignore test passing invalid selector            
             span: () => null,
           },
         }
